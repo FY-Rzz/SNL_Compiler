@@ -42,7 +42,7 @@
     <ClCompile Include="scanner.cpp">
       <Filter>源文件\Lexical</Filter>
     </ClCompile>
-    <ClCompile Include="util.cpp">
+    <ClCompile Include="Util_Lex.cpp">
       <Filter>源文件\Lexical</Filter>
     </ClCompile>
     <ClCompile Include="zparse.cpp">

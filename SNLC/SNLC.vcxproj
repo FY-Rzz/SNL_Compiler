@@ -149,7 +149,7 @@
     <ClCompile Include="scanner.cpp" />
     <ClCompile Include="SNLC.cpp" />
     <ClCompile Include="symbTable.cpp" />
-    <ClCompile Include="util.cpp" />
+    <ClCompile Include="Util_Lex.cpp" />
     <ClCompile Include="Util_LL1.cpp" />
     <ClCompile Include="Util_mg.cpp" />
     <ClCompile Include="Util_sf.cpp" />
