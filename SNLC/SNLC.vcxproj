@@ -155,6 +155,9 @@
     <ClCompile Include="Util_sf.cpp" />
     <ClCompile Include="zparse.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lexical.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

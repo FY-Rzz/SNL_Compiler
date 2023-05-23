@@ -82,4 +82,9 @@
       <Filter>源文件\Storage_free</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lexical.h">
+      <Filter>源文件\Lexical</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
