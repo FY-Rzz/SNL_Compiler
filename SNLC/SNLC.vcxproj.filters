@@ -39,51 +39,51 @@
     <ClCompile Include="SNLC.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="scanner.cpp">
+    <ClCompile Include="Lexical\scanner.cpp">
       <Filter>源文件\Lexical</Filter>
     </ClCompile>
-    <ClCompile Include="Util_Lex.cpp">
+    <ClCompile Include="Lexical\Util_Lex.cpp">
       <Filter>源文件\Lexical</Filter>
     </ClCompile>
-    <ClCompile Include="zparse.cpp">
+    <ClCompile Include="Grammar\zparse.cpp">
       <Filter>源文件\Grammar</Filter>
     </ClCompile>
-    <ClCompile Include="Util_LL1.cpp">
+    <ClCompile Include="Grammar\Util_LL1.cpp">
       <Filter>源文件\Grammar</Filter>
     </ClCompile>
-    <ClCompile Include="symbTable.cpp">
+    <ClCompile Include="Semantic\symbTable.cpp">
       <Filter>源文件\Semantic</Filter>
     </ClCompile>
-    <ClCompile Include="Analyze.cpp">
+    <ClCompile Include="Semantic\Analyze.cpp">
       <Filter>源文件\Semantic</Filter>
     </ClCompile>
-    <ClCompile Include="midcode.cpp">
+    <ClCompile Include="Intermediate_generation\midcode.cpp">
       <Filter>源文件\Intermediate_generation</Filter>
     </ClCompile>
-    <ClCompile Include="Util_mg.cpp">
+    <ClCompile Include="Intermediate_generation\Util_mg.cpp">
       <Filter>源文件\Intermediate_generation</Filter>
     </ClCompile>
-    <ClCompile Include="ConstOpti.cpp">
+    <ClCompile Include="Intermediate_optimization\ConstOpti.cpp">
       <Filter>源文件\Intermediate_optimization</Filter>
     </ClCompile>
-    <ClCompile Include="ECCsaving.cpp">
+    <ClCompile Include="Intermediate_optimization\ECCsaving.cpp">
       <Filter>源文件\Intermediate_optimization</Filter>
     </ClCompile>
-    <ClCompile Include="LoopOpti.cpp">
+    <ClCompile Include="Intermediate_optimization\LoopOpti.cpp">
       <Filter>源文件\Intermediate_optimization</Filter>
     </ClCompile>
-    <ClCompile Include="Code.cpp">
+    <ClCompile Include="Object_code\Code.cpp">
       <Filter>源文件\Object_code</Filter>
     </ClCompile>
-    <ClCompile Include="CodeGen.cpp">
+    <ClCompile Include="Object_code\CodeGen.cpp">
       <Filter>源文件\Object_code</Filter>
     </ClCompile>
-    <ClCompile Include="Util_sf.cpp">
+    <ClCompile Include="Storage_free\Util_sf.cpp">
       <Filter>源文件\Storage_free</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lexical.h">
+    <ClInclude Include="Lexical\lexical.h">
       <Filter>源文件\Lexical</Filter>
     </ClInclude>
   </ItemGroup>

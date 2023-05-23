@@ -139,24 +139,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Analyze.cpp" />
-    <ClCompile Include="Code.cpp" />
-    <ClCompile Include="CodeGen.cpp" />
-    <ClCompile Include="ConstOpti.cpp" />
-    <ClCompile Include="ECCsaving.cpp" />
-    <ClCompile Include="LoopOpti.cpp" />
-    <ClCompile Include="midcode.cpp" />
-    <ClCompile Include="scanner.cpp" />
+    <ClCompile Include="Semantic\Analyze.cpp" />
+    <ClCompile Include="Object_code\Code.cpp" />
+    <ClCompile Include="Object_code\CodeGen.cpp" />
+    <ClCompile Include="Intermediate_optimization\ConstOpti.cpp" />
+    <ClCompile Include="Intermediate_optimization\ECCsaving.cpp" />
+    <ClCompile Include="Intermediate_optimization\LoopOpti.cpp" />
+    <ClCompile Include="Intermediate_generation\midcode.cpp" />
+    <ClCompile Include="Lexical\scanner.cpp" />
     <ClCompile Include="SNLC.cpp" />
-    <ClCompile Include="symbTable.cpp" />
-    <ClCompile Include="Util_Lex.cpp" />
-    <ClCompile Include="Util_LL1.cpp" />
-    <ClCompile Include="Util_mg.cpp" />
-    <ClCompile Include="Util_sf.cpp" />
-    <ClCompile Include="zparse.cpp" />
+    <ClCompile Include="Semantic\symbTable.cpp" />
+    <ClCompile Include="Lexical\Util_Lex.cpp" />
+    <ClCompile Include="Grammar\Util_LL1.cpp" />
+    <ClCompile Include="Intermediate_generation\Util_mg.cpp" />
+    <ClCompile Include="Storage_free\Util_sf.cpp" />
+    <ClCompile Include="Grammar\zparse.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lexical.h" />
+    <ClInclude Include="Lexical\lexical.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
