@@ -2,9 +2,14 @@
 //
 
 #include <iostream>
+#include "Lexical/lexical.h"
+//#include "test1.cpp"
 
 // 设计条件编译标志，满足不同编译功能需求
 int main()
 {
+    //Lexer("snls.txt", "token.txt");
+    getTokenList("snls.txt", "token.txt");
+
     std::cout << "Hello World!\n";
 }

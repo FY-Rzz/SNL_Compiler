@@ -1,16 +1,44 @@
 // Util_Lex.cpp : 语法分析工具程序
 
-#include <iostream>
-#include <string>
+#include "lexical.h"
 using namespace std;
 
-// 显示语法分析结果
-void printTokenlist();
+void printTokenlist(vector<Token> tokenlist)
+{
+    for (const auto& token : tokenlist)
+    {
+        printToken(token);
+    }
+}
 
-// 显示一个单词
-// @PARAM token: 要打印的token
-void printToken(string token);
+void printToken(Token token)
+{
+    cout << "Line: " << token.lineShow << " Lex: " << token.lex << " Sem: " << token.sem << endl;
+}
 
-// 将链表中的token存入文件
-// @PARAM Chainhead: Token链表头指针
-void ChainToFile();
+void ChainToFile(vector<Token> tokenlist, string outputfile)
+{
+    ofstream outputFile(outputfile);
+    if (outputFile.is_open())
+    {
+        for (const auto& token : tokenlist)
+        {
+            outputFile << "Line: " << token.lineShow << " Lex: " << token.lex << " Sem: " << token.sem << endl;
+        }
+        outputFile.close();
+        cout << "Tokens written to file: " << outputfile << endl;
+    }
+    else
+    {
+        cout << "Unable to open output file: " << outputfile << endl;
+    }
+}
+
+// 输出错误信息
+void InputError(string info, const string file)
+{
+    ofstream ouput;
+    ouput.open(file);
+    ouput << info;
+    ouput.close();
+}

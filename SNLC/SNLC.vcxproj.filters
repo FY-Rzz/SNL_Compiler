@@ -34,6 +34,12 @@
     <Filter Include="源文件\Storage_free">
       <UniqueIdentifier>{53abb377-4f19-47cb-af5c-197541439973}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\docs">
+      <UniqueIdentifier>{65c14d38-1d61-4b44-bfc3-2fe2b0a5d086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Test">
+      <UniqueIdentifier>{3ed9061c-8a9d-40e7-a20b-10ee791e64ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SNLC.cpp">
@@ -81,10 +87,24 @@
     <ClCompile Include="Storage_free\Util_sf.cpp">
       <Filter>源文件\Storage_free</Filter>
     </ClCompile>
+    <ClCompile Include="test1.cpp">
+      <Filter>源文件\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lexical\lexical.h">
       <Filter>源文件\Lexical</Filter>
     </ClInclude>
+    <ClInclude Include="semantic.h">
+      <Filter>源文件\Semantic</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="snls.txt">
+      <Filter>源文件\docs</Filter>
+    </Text>
+    <Text Include="token.txt">
+      <Filter>源文件\docs</Filter>
+    </Text>
   </ItemGroup>
 </Project>
