@@ -87,7 +87,7 @@
     <ClCompile Include="Storage_free\Util_sf.cpp">
       <Filter>源文件\Storage_free</Filter>
     </ClCompile>
-    <ClCompile Include="test1.cpp">
+    <ClCompile Include="Test\test1.cpp">
       <Filter>源文件\Test</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,15 +95,21 @@
     <ClInclude Include="Lexical\lexical.h">
       <Filter>源文件\Lexical</Filter>
     </ClInclude>
-    <ClInclude Include="semantic.h">
+    <ClInclude Include="Semantic\semantic.h">
       <Filter>源文件\Semantic</Filter>
+    </ClInclude>
+    <ClInclude Include="Grammar\grammar.h">
+      <Filter>源文件\Grammar</Filter>
+    </ClInclude>
+    <ClInclude Include="SNLC.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="snls.txt">
+    <Text Include="Docs\snls.txt">
       <Filter>源文件\docs</Filter>
     </Text>
-    <Text Include="token.txt">
+    <Text Include="Docs\token.txt">
       <Filter>源文件\docs</Filter>
     </Text>
   </ItemGroup>

@@ -2,8 +2,7 @@
 //
 
 #include <iostream>
-#include "Lexical/lexical.h"
-//#include "test1.cpp"
+#include "SNLC.h"
 
 // 设计条件编译标志，满足不同编译功能需求
 int main()

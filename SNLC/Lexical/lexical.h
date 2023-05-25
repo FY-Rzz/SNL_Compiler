@@ -1,9 +1,10 @@
 #pragma once
-#ifndef DEFINED
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
+
+constexpr auto LEX_ERROR = "error.txt";
 using namespace std;
 
 // 
@@ -24,7 +25,8 @@ enum LexType
 	, ELSE, DO
 };
 
-string reserved_word[] = { "if","begin","intc","end"
+// 保留字表
+const string reserved_word[] = { "if","begin","intc","end"
 	,"type","var", "procedure","program","integer","char","array","record"
 	,"of","endwh","while","return","read","write","then"
 	,"else","do"
@@ -40,7 +42,6 @@ struct Token
 enum state {
 	START, INASSIGN, INCOMMENT, INNUM, INID, INCHAR, INRANGE, DONE,FINISH
 };
-#endif
 
 //-----------------------------函数声明------------------------------
 
@@ -54,8 +55,8 @@ void ungetNextChar();
 
 // 查找保留字
 // @PARAM s: 要检查的标识符
-// -> Lextype: 返回保留字词法
-LexType reservedLookup(string s);
+// -> int: 返回保留字词法对应的下标,若不是保留字则返回-1
+int reservedLookup(string s);
 
 // 取得所有单词
 void getTokenList(string inputFile, string outputFile);

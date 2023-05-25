@@ -1,7 +1,6 @@
 // scanner.cpp : 词法分析主文件，源程序经过词法分析程序后生成Token序列
 
 #include "lexical.h"
-#include <vector>
 
 using namespace std;
 
@@ -66,7 +65,7 @@ void Lexer(string inputFile, string outputFile) {
 						}
 						if (sta == START) {
 							string a = to_string(linenum) + "行有错误";
-							InputError(a, "error.txt");  // 输入错误处理
+							InputError(a, LEX_ERROR);  // 输入错误处理
 							exit(0);
 							break;
 						}
@@ -98,7 +97,7 @@ void Lexer(string inputFile, string outputFile) {
 						}
 						if (sta == START) {
 							string a = to_string(linenum) + "行有错误";
-							InputError(a, "error.txt");  // 输入错误处理
+							InputError(a, LEX_ERROR);  // 输入错误处理
 							exit(0);
 							break;
 						}
@@ -126,7 +125,7 @@ void Lexer(string inputFile, string outputFile) {
 							}
 							if (i == longquery) {
 								string a = to_string(linenum) + "行有错误";
-								InputError(a, "error.txt");  // 输入错误处理
+								InputError(a, LEX_ERROR);  // 输入错误处理
 								exit(0);
 								break;
 							}
@@ -146,7 +145,7 @@ void Lexer(string inputFile, string outputFile) {
 								sta = INASSIGN;  // 进入赋值运算符状态
 							else {
 								string a = to_string(linenum) + "行有错误";
-								InputError(a, "error.txt");  // 输入错误处理
+								InputError(a, LEX_ERROR);  // 输入错误处理
 								exit(0);
 							}
 							tok.lineShow = linenum;  // 记录行号
@@ -223,7 +222,7 @@ void Lexer(string inputFile, string outputFile) {
 							sta = INCOMMENT;  // 进入注释状态
 						else {
 							string a = to_string(linenum) + "行有错误";
-							InputError(a, "error.txt");  // 输入错误处理
+							InputError(a, LEX_ERROR);  // 输入错误处理
 							exit(0);
 						}
 						i++;
@@ -231,7 +230,7 @@ void Lexer(string inputFile, string outputFile) {
 					}
 					else {
 						string a = to_string(linenum) + "行有错误";
-						InputError(a, "error.txt");  // 输入错误处理
+						InputError(a, LEX_ERROR);  // 输入错误处理
 						exit(0);
 						break;
 					}
@@ -263,10 +262,20 @@ void ungetNextChar()
 {
 }
 
-LexType reservedLookup(string s)
+int reservedLookup(string s)
 {
+	// 保留字表的大小
+	const int reserved_size = sizeof(reserved_word) / sizeof(reserved_word[0]);
 
-	return TYPE;
+	// 遍历保留字表，比较每个元素和s是否相等
+	for (int i = 0; i < reserved_size; i++) {
+		if (reserved_word[i] == s) {
+			// 如果相等，返回下标i
+			return i;
+		}
+	}
+	// 如果没有找到，返回-1
+	return -1;
 }
 
 void getTokenList(string inputFile, string outputFile)
@@ -281,7 +290,7 @@ void getTokenList(string inputFile, string outputFile)
 	ofstream fout(outputFile);
 	if (!fin && !fout) {
 		string a = "文件打开失败";
-		InputError(a, "error.txt");
+		InputError(a, LEX_ERROR);
 		exit(0);
 	}
 	else
@@ -365,7 +374,7 @@ void getTokenList(string inputFile, string outputFile)
 						}
 						if (sta == START) {
 							string a = to_string(linenum) + "行有错误";
-							InputError(a, "error.txt");
+							InputError(a, LEX_ERROR);
 							exit(0);
 							break;
 						}
@@ -427,7 +436,7 @@ void getTokenList(string inputFile, string outputFile)
 							else {
 
 								string a = to_string(linenum) + "行有错误";
-								InputError(a, "error.txt");
+								InputError(a, LEX_ERROR);
 								exit(0);
 							}
 
@@ -483,7 +492,7 @@ void getTokenList(string inputFile, string outputFile)
 					if (sta != INCOMMENT && sta != FINISH && i < longquery) {
 
 						string a = to_string(linenum) + "行有错误";
-						InputError(a, "error.txt");
+						InputError(a, LEX_ERROR);
 						exit(0);
 						i++;
 					}
