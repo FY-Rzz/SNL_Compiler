@@ -16,9 +16,6 @@
     <Filter Include="源文件\Lexical">
       <UniqueIdentifier>{af5f77ac-911e-4842-899e-f7aeb9c9cdea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Grammar">
-      <UniqueIdentifier>{56fc17be-9e35-4960-8c6a-809c48bb84f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\Semantic">
       <UniqueIdentifier>{2d660087-1ca2-4295-8a9a-938f8b4b4970}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="源文件\Test">
       <UniqueIdentifier>{3ed9061c-8a9d-40e7-a20b-10ee791e64ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Grammar">
+      <UniqueIdentifier>{56fc17be-9e35-4960-8c6a-809c48bb84f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -104,12 +104,18 @@
     <ClInclude Include="SNLC.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="Intermediate_generation\midcode_g.h">
+      <Filter>源文件\Intermediate_generation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Docs\snls.txt">
       <Filter>源文件\docs</Filter>
     </Text>
     <Text Include="Docs\token.txt">
+      <Filter>源文件\docs</Filter>
+    </Text>
+    <Text Include="Docs\production.txt">
       <Filter>源文件\docs</Filter>
     </Text>
   </ItemGroup>

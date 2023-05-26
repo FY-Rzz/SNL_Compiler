@@ -9,6 +9,90 @@
 
 using namespace std;
 
+//-------------------------------
+// 标识符类别
+enum IdKind { typeKind, varKind, procKind };// 类型、变量、过程
+
+//
+enum AccessKind { dir, indir }; // 直接变量、间接变量
+
+// 类型枚举
+enum TypeKind { intTy, charTy, arrayTy, recordTy, boolTy }; // 
+
+
+//形参信息表声明
+struct ParamTable;
+
+//标识符信息项
+typedef struct
+{
+	struct typeIR* idtype; /*指向标识符的类型内部表示*/
+	IdKind kind; /*标识符的类型*/  //typeKind, varKind, procKind
+	union
+	{
+		struct
+		{
+			//Access表示是直接变量还是间接变量：access = （dir,indir）indir表示是间接变量（变参属于间接变量），dir表示直接变量
+			AccessKind access;
+			int level;
+			int off;
+		}VarAttr; /*变量标识符的属性*/
+		struct
+		{
+			int level;
+			ParamTable* param; /*参数表*/ //形参信息表地址
+			int code;
+			int size;
+		}ProcAttr; /*过程名标识符的属性*/
+	}More; /*标识符的不同类型有不同的属性*/
+}AttributeIR;
+
+//符号表定义
+struct symbtable
+{
+	string idname;
+	AttributeIR attrIR;
+	struct symbtable* next = nullptr;
+}SymbTable;
+
+struct ParamTable {
+	symbtable* entry;                 //形参标识符在符号表中的位置
+	ParamTable* next = nullptr;
+};
+
+//记录域表
+struct fieldChain
+{
+	string idname; //记录域中的标识符；
+	typeIR* unitType; //指向域类型的内部表示；                                                               //这里有错误
+	int offset; //表示当前标识符在记录中的偏移；
+	fieldChain* next; //指向下一个域。
+};
+
+//标识符内部表示
+struct typeIR
+{
+	int size; /*类型所占空间大小*/
+	TypeKind kind;  //intTy, charTy, arrayTy, recordTy, boolTy
+	union
+	{
+		struct
+		{
+			struct typeIR* indexTy;
+			struct typeIR* elemTy;
+		}ArrayAttr;
+		fieldChain* body; /*记录类型中的域链*/
+	} More;
+};
+
+// 变量声明
+//symbtable Scope[10000];//符号表
+//symbtable DestroyScope[10000];//撤销符号表
+//int destroylevel = 0;
+//int level = 0;
+//bool flagtree = false;//用于判断自定义类型是类型声明还是变量声明，变量声明为false
+//symbtable* table = nullptr;
+
 //-------------------------------函数声明--------------------------------
 
 /*---symbTable.cpp---*/
@@ -125,4 +209,4 @@ void Writestatement();
 void Returnstatement();
 
 // 语法分析主程序
-void Analyze();
+void Analyze(TreeNode *currentP);

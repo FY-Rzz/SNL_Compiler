@@ -159,12 +159,14 @@
   <ItemGroup>
     <ClInclude Include="Grammar\grammar.h" />
     <ClInclude Include="Lexical\lexical.h" />
+    <ClInclude Include="Intermediate_generation\midcode_g.h" />
     <ClInclude Include="Semantic\semantic.h" />
     <ClInclude Include="SNLC.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Docs\snls.txt" />
     <Text Include="Docs\token.txt" />
+    <Text Include="Docs\production.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
