@@ -54,6 +54,8 @@ struct CodeFile {
 //-------------------------------函数声明------------------------
 
 /*---Util.cpp---*/
+/*sja*/
+
 // 新建一个临时变量
 ArgRecord* NewTemp(AccessKind access);
 

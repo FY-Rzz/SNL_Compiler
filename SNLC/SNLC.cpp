@@ -8,7 +8,7 @@
 int main()
 {
     //Lexer("snls.txt", "token.txt");
-    getTokenList("snls.txt", "token.txt");
+    getTokenList("./Docs/snls.txt", "./Docs/token.txt");
 
     std::cout << "Hello World!\n";
 }

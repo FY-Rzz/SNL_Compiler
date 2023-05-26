@@ -53,7 +53,7 @@ struct symbtable
 	string idname;
 	AttributeIR attrIR;
 	struct symbtable* next = nullptr;
-}SymbTable;
+};
 
 struct ParamTable {
 	symbtable* entry;                 //形参标识符在符号表中的位置

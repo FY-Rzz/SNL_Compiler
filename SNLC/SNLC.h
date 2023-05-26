@@ -1,3 +1,3 @@
 #pragma once
 
-#include "Semantic/semantic.h"
+#include "Intermediate_generation/midcode_g.h"
