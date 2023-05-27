@@ -155,67 +155,70 @@ void printOneLayer();
 void initialize();
 
 // 处理类型分析
-void TypeProcess();
+typeIR* TypeProcess(TreeNode* t);
 
 // 处理自定义类型名
-void nameType();
+typeIR* nameType(TreeNode* t);
 
 // 处理数组类型的内部表示
-void arrayType();
+typeIR* arrayType(TreeNode* t);
 
 // 处理记录类型的内部表示
-void recordType();
+typeIR* recordType(TreeNode* t);
 
 // 处理类型声明部分
-void TypeDecPart();
+void TypeDecPart(TreeNode* t);
 
 // 处理变量声明部分
-void VarDecList();
+void VarDecList(TreeNode* t);
 
 // 处理过程声明部分
-void ProcDecPart();
+void ProcDecPart(TreeNode* t);
 
 // 处理过程头的语义分析
 void HeadProcess();
 
 // 处理参数声明的语义分析
-void ParaDecList();
+ParamTable* ParaDecList(TreeNode* t);
 
 // 处理执行体部分的语义分析
-void Body();
+void Body(TreeNode* t);
 
 // 处理语句状态
-void statement();
+void statement(TreeNode* t);
 
 // 处理表达式
-void Expr();
+typeIR* Expr(TreeNode* t, AccessKind* Ekind);
 
 // 处理下标变量
-void arrayVar();
+typeIR* arrayVar(TreeNode* t);
 
 // 处理域变量
-void recordVar();
+typeIR* recordVar(TreeNode* t);
 
 // 处理赋值语句
-void Assignstatement();
+void Assignstatement(TreeNode* t);
 
 // 处理调用语句
-void callstatement();
+void callstatement(TreeNode* t);
 
 // 处理条件语句
-void ifstatement();
+void ifstatement(TreeNode* t);
 
 // 处理循环语句
-void Whilestatement();
+void Whilestatement(TreeNode* t);
 
 // 处理读语句
-void readstatement();
+void readstatement(TreeNode* t);
 
 // 处理写语句
-void Writestatement();
+void Writestatement(TreeNode* t);
 
 // 处理返回语句
-void Returnstatement();
+void Returnstatement(TreeNode* t);
 
 // 语法分析主程序
 void Analyze(TreeNode *currentP);
+
+//遍历语法树，调用相应的函数处理语法树结点
+void bianli(TreeNode* t);

@@ -7,10 +7,9 @@
 // 设计条件编译标志，满足不同编译功能需求
 int main()
 {
-    //Lexer("snls.txt", "token.txt");
     getTokenList("./Docs/snls.txt", "./Docs/token.txt");
-    //TreeNode* root = DesParse();
-    //Analyze(root);
+    TreeNode* root = DesParse();
+    Analyze(root);
     std::cout << "Hello World!\n";
 }
 
