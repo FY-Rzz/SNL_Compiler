@@ -53,7 +53,7 @@ struct symbtable
 	string idname;
 	AttributeIR attrIR;
 	struct symbtable* next = nullptr;
-}SymbTable;
+};
 
 struct ParamTable {
 	symbtable* entry;                 //形参标识符在符号表中的位置
@@ -86,6 +86,9 @@ struct typeIR
 };
 
 // 变量声明
+const int initOff = 7;
+extern int level;
+extern int off;
 //symbtable Scope[10000];//符号表
 //symbtable DestroyScope[10000];//撤销符号表
 //int destroylevel = 0;
@@ -107,10 +110,16 @@ void CreateTable();
 void DestroyTable();
 
 // 登记标识符和属性
-void Enter();
+bool Enter(string Id, AttributeIR* AttribP, symbtable** Entry);
 
 // 寻找表项地址
-void FindEnter();
+bool FindEntry(string id, bool flag, symbtable** Entry);
+
+// 从表头开始，依次将节点中的标识符名字和 id 比较是否相同
+bool SearchoneTable(string id, int currentLevel, symbtable** Entry);
+
+//在域表中查找域名
+bool FindField(string Id, fieldChain* head, fieldChain** Entry);
 
 // 属性查询
 void FindAttr();
@@ -134,7 +143,7 @@ void ErrorPrompt();
 void printTab();
 
 // 打印符号表
-void printSymbTable();
+void printSymbTable(string path);
 
 
 // 打印符号表的一层

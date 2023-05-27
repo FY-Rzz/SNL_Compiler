@@ -118,5 +118,6 @@
     <Text Include="Docs\production.txt">
       <Filter>源文件\docs</Filter>
     </Text>
+    <Text Include="Docs\listing.txt" />
   </ItemGroup>
 </Project>

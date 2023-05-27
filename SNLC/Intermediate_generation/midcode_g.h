@@ -54,6 +54,8 @@ struct CodeFile {
 //-------------------------------函数声明------------------------
 
 /*---Util.cpp---*/
+/*sja*/
+
 // 新建一个临时变量
 ArgRecord* NewTemp(AccessKind access);
 
@@ -95,6 +97,9 @@ void GenAssignS(TreeNode* t);
 
 // 变量中间代码生成函数
 ArgRecord* GenVar(TreeNode* t);
+
+//数组变量的中间代码生成函数
+ArgRecord* GenArray(ArgRecord* Vlarg, TreeNode* t, int low, int size);
 
 // 域成员变量的中间代码生成
 ArgRecord* GenField(ArgRecord* V1arg, TreeNode* t, fieldChain* head);

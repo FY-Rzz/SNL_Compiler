@@ -84,6 +84,7 @@ struct Attr {		//记录语法树节点其他属性
 	ProcAttr procAttr;
 	ExpAttr expAttr;
 };
+
 struct TreeNode
 {
 	TreeNode* child[3];	//指向子语法树节点指针,0是程序头,1是声明，2是程序体
