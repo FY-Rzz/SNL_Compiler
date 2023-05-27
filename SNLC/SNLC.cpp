@@ -9,6 +9,12 @@ int main()
 {
     //Lexer("snls.txt", "token.txt");
     getTokenList("./Docs/snls.txt", "./Docs/token.txt");
-
+    //TreeNode* root = DesParse();
+    //Analyze(root);
     std::cout << "Hello World!\n";
 }
+
+/// vs
+/// 批量注释 Ctrl+K+C
+/// 取消注释 Ctrl+K+U
+///
