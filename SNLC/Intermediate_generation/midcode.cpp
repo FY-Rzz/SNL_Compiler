@@ -1,5 +1,50 @@
 #include "midcode_g.h"
 
+// 中间代码生成主函数
+CodeFile* GenMidCode(TreeNode* t) {
+	TreeNode* tmp = t;
+	tmp = t->child[1];
+	while (tmp->nodekind != ProcDecK) {
+		tmp = tmp->sibling;
+	}
+	if (tmp != NULL) tmp = tmp->child[0];
+	while (tmp != NULL) {
+		GenProcDec(tmp);
+		tmp = tmp->sibling;
+
+	}
+	//生成入口代码
+	ArgRecord* arg2 = ARGValue(0);
+	ArgRecord* arg3 = ARGValue(0);
+	CodeFile* c = GenCode(MENTRY, NULL, arg2, arg3);
+
+	tmp_num = ;//活动记录第一个临时变量的偏移
+
+	GenBody(t);
+	//活动记录的大小？？？回填arg2
+
+	return head;
+}
+
+// 过程声明中间代码生成函数
+void GenProcDec(TreeNode* t) {
+	int ProcEny = NewLabel();
+	//回填？符号表
+	ArgRecord* arg1 = ARGValue(ProcEny);
+	ArgRecord* arg2 = ARGValue(0);//层数
+	ArgRecord* arg3 = ARGValue(0);//偏移量
+
+
+	CodeFile* c = GenCode(PENTRY, arg1, arg2, arg3);
+
+	//初始化
+
+	GenBody(t);
+	//回填  同上
+
+	CodeFile* c = GenCode(ENDPROC, NULL, NULL, NULL);
+}
+
 // 循环语句中间代码生成函数
 void GenWhileS(TreeNode* t)
 {
