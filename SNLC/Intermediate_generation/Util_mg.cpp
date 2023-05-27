@@ -34,7 +34,7 @@ int NewLabel() {
 ArgRecord* ARGLabel(int label) {
 	ArgRecord* tmp = new ArgRecord();
 	tmp->form = LabelForm;
-	tmp->label = NewLabel();
+	tmp->label = label;
 
 	return tmp;
 }
