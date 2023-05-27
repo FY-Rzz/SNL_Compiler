@@ -23,6 +23,8 @@
 3 0 j
 3 25 SingleSeparator
 3 0 num
+3 25 SingleSeparator
+3 0 temp
 3 18 SingleSeparator
 4 21 ReseverWord
 4 11 SingleSeparator

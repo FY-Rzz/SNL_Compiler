@@ -8,18 +8,18 @@ string arrayLexTypeD_hyf[] = { "ID","IF","BEGIN","INTC","END","PLUS","MINUS","TI
 };
 string temp_name;
 Token token;		//存储当前Token
-ifstream in("../Docs/token.txt");
+ifstream in("./Docs/token.txt");
 /*******************函数声明************************/
 TreeNode* DesParse() {
 	//读入token
 	ReadToken();
 	TreeNode* t = Program();
 	if (in.eof()) {
-		Input(t, "../Docs/treeDes.txt");
+		Input(t, "./Docs/treeDes.txt");
 	}
 	else {
 		string a = "文件提前结束";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		exit(0);
 	}
 	return t;
@@ -33,7 +33,7 @@ TreeNode* Program() {
 	TreeNode* s = ProgramBody();
 	if (t == NULL) {
 		string a = "没有程序头";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 	}
@@ -42,7 +42,7 @@ TreeNode* Program() {
 	}
 	if (q == NULL) {
 		string a = "没有声明";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		//exit(0);
 	}
@@ -51,7 +51,7 @@ TreeNode* Program() {
 	}
 	if (s == NULL) {
 		string a = "没有程序体";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		//exit(0);
 	}
@@ -120,7 +120,7 @@ TreeNode* TypeDec() {
 	else {
 		ReadToken();
 		string a = to_string(token.lineShow ) + ":当前单词" + arrayLexTypeD_hyf[(int)token.lex] + "不合格，跳过";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 	}
@@ -154,7 +154,7 @@ TreeNode* TypeDecMore() {
 	else if (token.lex == VAR || token.lex == PROCEDURE || token.lex == BEGIN) {}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 	}
@@ -184,7 +184,7 @@ void TypeDef(TreeNode* t) {
 		}
 		else {
 			string a = to_string(token.lineShow ) + "行有错误";
-			InputError(a, "../Docs/error.txt");
+			InputError(a, "./Docs/error.txt");
 			//cout << "文件提前结束";
 			exit(0);
 		}
@@ -235,7 +235,7 @@ void RecType(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//错误信息提示
@@ -261,7 +261,7 @@ TreeNode* FieldDecList() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词，但是现在都没有匹配的了，读入下一个单词不就是有错误吗
@@ -277,7 +277,7 @@ TreeNode* FieldDecMore() {
 		}
 		else {
 			string a = to_string(token.lineShow ) + "行有错误";
-			InputError(a, "../Docs/error.txt");
+			InputError(a, "./Docs/error.txt");
 			//cout << "文件提前结束";
 			exit(0);
 			//读入下一个单词
@@ -301,7 +301,7 @@ void IdMore(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -327,7 +327,7 @@ TreeNode* VarDeclaration() {
 	TreeNode* t = VarDecList();
 	if (t == NULL) {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//语法错误信息提示
@@ -355,7 +355,7 @@ TreeNode* VarDecMore() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -370,7 +370,7 @@ void VarIdList(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//错误提示，读入下一个单词
@@ -385,7 +385,7 @@ void VarIdMore(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -399,7 +399,7 @@ TreeNode* ProcDec() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -434,7 +434,7 @@ TreeNode* ProcDecMore() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -451,7 +451,7 @@ void ParamList(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -474,14 +474,14 @@ TreeNode* ParamMore() {
 		if (t == NULL) {
 			//错误提示
 			string a = to_string(token.lineShow ) + "行有错误";
-			InputError(a, "../Docs/error.txt");
+			InputError(a, "./Docs/error.txt");
 			//cout << "文件提前结束";
 			exit(0);
 		}
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -506,7 +506,7 @@ TreeNode* Param() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -529,7 +529,7 @@ void FidMore(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读取下一个单词
@@ -542,7 +542,7 @@ TreeNode* ProcBody() {
 	TreeNode* t = ProgramBody();
 	if (t == NULL) {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//错误信息提示
@@ -573,7 +573,7 @@ TreeNode* StmMore() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -615,7 +615,7 @@ TreeNode* Stm() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//当前单词为其他单词，非期望单词语法错误，
@@ -636,7 +636,7 @@ void AssCall(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -725,7 +725,7 @@ TreeNode* ActParamList() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -741,7 +741,7 @@ TreeNode* ActParamMore() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个单词
@@ -818,7 +818,7 @@ TreeNode* Factor() {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//当前单词为其他单词，
@@ -860,7 +860,7 @@ void VariMore(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个token，并提示错误信息
@@ -893,7 +893,7 @@ void FieldVarMore(TreeNode* t) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
 		//读入下一个token，并提示错误信息
@@ -905,21 +905,29 @@ void Match(LexType expected) {
 	}
 	else {
 		string a = to_string(token.lineShow ) + "行有错误";
-		InputError(a, "../Docs/error.txt");
+		InputError(a, "./Docs/error.txt");
 		exit(0);
 	}
 }
 
 void ReadToken() {
-	string line;
-	getline(in, line);
-	istringstream inword(line);
-	inword >> token.lineShow ;
-	int lex;
-	inword >> lex;
-	token.lex = (LexType)lex;
-	inword >> token.sem;
-	int lineno = token.lineShow ;
+	if (in.is_open()) {
+		string line;
+		getline(in, line);
+		istringstream inword(line);
+		inword >> token.lineShow ;
+		int lex;
+		inword >> lex;
+	
+		token.lex = (LexType)lex;cout << "lex:" << lex << endl;
+		inword >> token.sem;
+		int lineno = token.lineShow ;
+		cout << "lineno:" << lineno << endl;
+	}
+	else {
+		cout << "token文件未打开" << endl;
+	}
+	
 }
 
 void Input(TreeNode* root, string path) {

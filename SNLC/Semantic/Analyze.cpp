@@ -11,7 +11,7 @@ void Analyze(TreeNode* root)
 	// 循环处理主程序声明
 	bianli(root);
 	// 循环处理主程序体
-	printSymbTable("../Docs/symbtable.txt");
+	printSymbTable("./Docs/symbtable.txt");
 	// 撤销符号表
 	
 }
