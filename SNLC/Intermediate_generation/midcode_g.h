@@ -67,7 +67,7 @@ int NewLabel();
 ArgRecord* ARGLabel(int label);
 
 // 创建地址类 ARG 结构
-ArgRecord* ARGAddr(char* id, int level, int off, AccessKind access);
+ArgRecord* ARGAddr(string id, int level, int off, AccessKind access);
 
 // 输出中间代码
 void PrintMidCode(CodeFile* firstCode);
