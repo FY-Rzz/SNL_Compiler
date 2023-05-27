@@ -22,8 +22,8 @@ enum CodeKind {
 
 struct ArgRecord {
 	Form form;
-	union 
-	{
+	//union 
+	//{
 		int value;
 		int label;
 		struct {
@@ -32,7 +32,10 @@ struct ArgRecord {
 			int dataOff;
 			AccessKind access; // dir or indir
 		}Addr;
-	} Attr;
+	//};
+	ArgRecord() {
+
+	}
 };
 
 // 中间代码结构
