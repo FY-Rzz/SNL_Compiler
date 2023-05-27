@@ -98,3 +98,70 @@ struct TreeNode
 	string type_name;	//记录类型名，当节点为声明类型且类型是由类型标志符表示是有效
 	Attr attr;				//记录语法树节点其他属性
 };
+
+
+/*******************函数声明************************/
+
+void Input(TreeNode* t, string path);	//将抽象树输出到文件中
+void InputError(string errorInfo, string path);	//将错误信息输入到文件中
+
+//递归下降所使用的函数
+TreeNode* DesParse();
+TreeNode* Program();
+TreeNode* ProgramHead();
+TreeNode* DeclarePart();
+TreeNode* TypeDec();
+TreeNode* TypeDeclaration();
+TreeNode* TypeDecList();
+TreeNode* TypeDecMore();
+void TypeId(TreeNode* t);
+void TypeDef(TreeNode* t);
+void BaseType(TreeNode* t);
+void StructureType(TreeNode* t);
+void ArrayType(TreeNode* t);
+void RecType(TreeNode* t);
+TreeNode* FieldDecList();
+TreeNode* FieldDecMore();
+void IdList(TreeNode* t);
+void IdMore(TreeNode* t);
+TreeNode* VarDec();
+TreeNode* VarDeclaration();
+TreeNode* VarDecList();
+TreeNode* VarDecMore();
+void VarIdList(TreeNode* t);
+void VarIdMore(TreeNode* t);
+TreeNode* ProcDec();
+TreeNode* ProcDeclaration();
+TreeNode* ProcDecMore();
+void ParamList(TreeNode* t);
+TreeNode* ParamDecList();
+TreeNode* ParamMore();
+TreeNode* Param();
+void FormList(TreeNode* t);
+void FidMore(TreeNode* t);
+TreeNode* ProcDecPart();
+TreeNode* ProcBody();
+TreeNode* ProgramBody();
+TreeNode* StmList();
+TreeNode* StmMore();
+TreeNode* Stm();
+void AssCall(TreeNode* t);
+void AssignmentRest(TreeNode* t);
+TreeNode* ConditionalStm();
+TreeNode* LoopStm();
+TreeNode* InputStm();
+TreeNode* OutputStm();
+TreeNode* ReturnStm();
+void CallStmRest(TreeNode* t);
+TreeNode* ActParamList();
+TreeNode* ActParamMore();
+TreeNode* Exp();
+TreeNode* Simple_exp();
+TreeNode* Term();
+TreeNode* Factor();
+TreeNode* Variable();
+void VariMore(TreeNode* t);
+TreeNode* FieldVar();
+void FieldVarMore(TreeNode* t);
+void Match(LexType expexted);
+void ReadToken();

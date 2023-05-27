@@ -164,10 +164,11 @@
     <ClInclude Include="SNLC.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Docs\listing.txt" />
     <Text Include="Docs\snls.txt" />
-    <Text Include="Docs\token.txt" />
     <Text Include="Docs\production.txt" />
+    <Text Include="Docs\symbtable.txt" />
+    <Text Include="Docs\token.txt" />
+    <Text Include="Docs\treeDes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
