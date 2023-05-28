@@ -89,7 +89,7 @@ struct typeIR
 const int initOff = 7;
 extern int level;
 extern int off;
-//symbtable Scope[10000];//·ûºÅ±í
+extern symbtable Scope[10000];//·ûºÅ±í
 //symbtable DestroyScope[10000];//³·Ïú·ûºÅ±í
 //int destroylevel = 0;
 //int level = 0;
