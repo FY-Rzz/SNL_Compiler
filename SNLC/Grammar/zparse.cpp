@@ -23,8 +23,8 @@ TreeNode* DesParse() {
 		InputError(a, "./Docs/error.txt");
 		exit(0);
 	}
-	return t;
 	cout << "语法分析完成..." << endl;
+	return t;
 }
 TreeNode* Program() {
 	TreeNode* root = new TreeNode();

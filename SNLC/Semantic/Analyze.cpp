@@ -15,8 +15,10 @@ void Analyze(TreeNode* root)
 	// 循环处理主程序体
 	bianli(root);
 	// 撤销符号表
+	// 打印符号表
 	printSymbTable("./Docs/symbtable.txt");
 	cout << "语义分析完成" << endl;
+	return;
 }
 
 void initialize()
