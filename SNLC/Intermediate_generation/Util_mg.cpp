@@ -1,8 +1,6 @@
 #include "midcode_g.h"
 
-int tmp_num;
-int label_num;
-CodeFile* head, *tail;
+
 ArgRecord* NewTemp(AccessKind access) {
 	ArgRecord* tmp = new ArgRecord();
 	tmp->form = AddrForm;
@@ -35,7 +33,6 @@ ArgRecord* ARGLabel(int label) {
 	ArgRecord* tmp = new ArgRecord();
 	tmp->form = LabelForm;
 	tmp->label = label;
-
 	return tmp;
 }
 
@@ -56,6 +53,7 @@ void PrintMidCode(CodeFile* firstCode) {
 	while (firstCode) {
 		cout << "(";
 		cout << firstCode->onecode->codekind;
+		cout << ", ";
 
 		if (firstCode->onecode->arg1 != NULL) {
 			switch (firstCode->onecode->arg1->form) {

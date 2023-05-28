@@ -7,6 +7,7 @@
 
 #include "../Semantic/semantic.h"
 
+
 enum Form{ ValueForm, LabelForm, AddrForm };
 
 enum CodeKind {
@@ -53,6 +54,11 @@ struct CodeFile {
 	CodeFile* next;
 };
 
+
+//-------------------------------全局变量声明--------------------
+int tmp_num;
+int label_num;
+CodeFile* head, * tail;
 
 //-------------------------------函数声明------------------------
 
