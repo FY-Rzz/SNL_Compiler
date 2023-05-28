@@ -80,7 +80,7 @@ struct typeIR
 		{
 			struct typeIR* indexTy;
 			struct typeIR* elemTy;
-		}ArrayAttr;
+		} ArrayAttr;
 		fieldChain* body; /*记录类型中的域链*/
 	} More;
 };
@@ -197,7 +197,7 @@ typeIR* arrayVar(TreeNode* t);
 typeIR* recordVar(TreeNode* t);
 
 // 处理赋值语句
-void Assignstatement(TreeNode* t);
+void assignstatement(TreeNode* t);
 
 // 处理调用语句
 void callstatement(TreeNode* t);
@@ -206,16 +206,16 @@ void callstatement(TreeNode* t);
 void ifstatement(TreeNode* t);
 
 // 处理循环语句
-void Whilestatement(TreeNode* t);
+void whilestatement(TreeNode* t);
 
 // 处理读语句
 void readstatement(TreeNode* t);
 
 // 处理写语句
-void Writestatement(TreeNode* t);
+void writestatement(TreeNode* t);
 
 // 处理返回语句
-void Returnstatement(TreeNode* t);
+void returnstatement(TreeNode* t);
 
 // 语法分析主程序
 void Analyze(TreeNode *currentP);

@@ -9,11 +9,11 @@ void Analyze(TreeNode* root)
 	initialize();
 
 	// 循环处理主程序声明
-	bianli(root);
-	// 循环处理主程序体
-	printSymbTable("./Docs/symbtable.txt");
-	// 撤销符号表
 	
+	// 循环处理主程序体
+	bianli(root);
+	// 撤销符号表
+	printSymbTable("./Docs/symbtable.txt");
 }
 
 void initialize()
@@ -358,7 +358,7 @@ void callstatement(TreeNode* t) {
 }
 
 //条件语句分析处理函数                                                                         
-void ifstatment(TreeNode* t) {
+void ifstatement(TreeNode* t) {
 	//if语法树child[0]为if表达式,且为操作符
 	TreeNode* ift = t->child[0];
 	AccessKind* Ekind = new AccessKind;
@@ -411,7 +411,7 @@ void returnstatment(TreeNode* t) {
 //语句序列分析处理函数
 void statement(TreeNode* t) {
 	if (t->kind.stmt == IfK) {
-		ifstatment(t);
+		ifstatement(t);
 	}
 	else if (t->kind.stmt == WhileK) {
 		whilestatement(t);
@@ -451,6 +451,7 @@ typeIR* arrayVar(TreeNode* t) {
 typeIR* recordVar(TreeNode* t) {
 	return nullptr;
 }
+
 //遍历语法树，调用相应的函数处理语法树结点
 void bianli(TreeNode* t) {
 	if (t == nullptr)
