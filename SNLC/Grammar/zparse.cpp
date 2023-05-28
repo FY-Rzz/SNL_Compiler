@@ -538,7 +538,7 @@ void FidMore(TreeNode* t) {
 TreeNode* ProcDecPart() {
 	return DeclarePart();
 }
-TreeNode* ProcBody() {
+TreeNode* ProcBody() { //提供错误处理，防止不存在函数体
 	TreeNode* t = ProgramBody();
 	if (t == NULL) {
 		string a = to_string(token.lineShow ) + "行有错误";
@@ -623,14 +623,14 @@ TreeNode* Stm() { //根据语句的lex不同，判断调用哪个语句处理函数
 	}
 	return t;
 }
-void AssCall(TreeNode* t) { //语句以标识符开始，大致分成2种情况：非函数和函数；
+void AssCall(TreeNode* t) { //语句以标识符开始，大致分成2种情况：赋值语句和函数；
 	Match(ID);
-	if (token.lex == ASSIGN || token.lex == LMIDPAREN || token.lex == DOT) { //非函数，f的节点赋予赋值语句类型
+	if (token.lex == ASSIGN || token.lex == LMIDPAREN || token.lex == DOT) { //赋值语句，f的节点赋予赋值语句类型
 		AssignmentRest(t);
 		t->kind.stmt = AssignK;
 
 	}
-	else if (token.lex == LPAREN) {
+	else if (token.lex == LPAREN) { //函数调用，f节点赋值为调用类型
 		CallStmRest(t);
 		t->kind.stmt = CallK;
 	}
@@ -643,9 +643,9 @@ void AssCall(TreeNode* t) { //语句以标识符开始，大致分成2种情况：非函数和函数；
 	}
 }
 void AssignmentRest(TreeNode* t) {  //处理赋值语句后续
-	VariMore(t->child[0]);
+	VariMore(t->child[0]); //处理可能存在的数组或结构体
 	Match(ASSIGN);
-	t->child[1] = Exp();
+	t->child[1] = Exp();  
 }
 TreeNode* ConditionalStm() { //创建语句节点，类型为判断语句，匹配IF，处理之后表达式，匹配THEN，stmList处理之后一系列语句，判断是否有ELSE，有则继续处理，没有匹配FI
 	TreeNode* t = new TreeNode();
@@ -709,12 +709,12 @@ TreeNode* ReturnStm() {//创建语句节点，类型为返回语句，
 	Match(RETURN);
 	return t;
 }
-void CallStmRest(TreeNode* t) {
+void CallStmRest(TreeNode* t) { //
 	Match(LPAREN);
 	(*t).child[1] = ActParamList();
 	Match(RPAREN);
 }
-TreeNode* ActParamList() {
+TreeNode* ActParamList() { //处理实参列表
 	TreeNode* t = NULL;
 	if (token.lex == RPAREN) {}
 	else if (token.lex == ID || token.lex == INTC) {
@@ -732,7 +732,7 @@ TreeNode* ActParamList() {
 	}
 	return t;
 }
-TreeNode* ActParamMore() {
+TreeNode* ActParamMore() { //循环依次处理实参
 	TreeNode* t = NULL;
 	if (token.lex == RPAREN) {}
 	else if (token.lex == COMMA) {
