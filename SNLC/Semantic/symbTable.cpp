@@ -18,6 +18,11 @@ void CreateTable() {
 
 //撤销一个符号表
 void DestroyTable() {
+	//DestroyScope[destroylevel].next = Scope[level].next;
+	//destroylevel++;
+	//Scope[level].next = nullptr;
+	//off = off2;
+	//level = level - 1;
 	DestroyScope[destroylevel].next = Scope[level].next;
 	destroylevel++;
 	Scope[level].next = nullptr;
@@ -96,7 +101,7 @@ void printSymbTable(string path)
 		while (t != nullptr) {
 			//有选择地输出一些符号表信息项
 			if (t->attrIR.kind == typeKind)
-				ouput << t->idname << " " << t->attrIR.kind << " " << &t->attrIR << " " << t->attrIR.idtype << " " << t->attrIR.More.VarAttr.level << endl;
+				ouput << t->idname << " " << t->attrIR.kind << " " << &t->attrIR << " " << t->attrIR.idtype << endl;
 			else if (t->attrIR.kind == varKind)
 			{
 				if (t->attrIR.idtype != nullptr)

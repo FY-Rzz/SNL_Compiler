@@ -11,6 +11,7 @@ Token token;		//存储当前Token
 ifstream in("./Docs/token.txt");
 /*******************函数声明************************/
 TreeNode* DesParse() {
+	cout << "进入语法分析..." << endl;
 	//读入token
 	ReadToken();
 	TreeNode* t = Program();
@@ -23,6 +24,7 @@ TreeNode* DesParse() {
 		exit(0);
 	}
 	return t;
+	cout << "语法分析完成..." << endl;
 }
 TreeNode* Program() {
 	TreeNode* root = new TreeNode();
@@ -919,10 +921,10 @@ void ReadToken() {
 		int lex;
 		inword >> lex;
 	
-		token.lex = (LexType)lex;cout << "lex:" << lex << endl;
+		//token.lex = (LexType)lex;cout << "lex:" << lex << endl;
 		inword >> token.sem;
 		int lineno = token.lineShow ;
-		cout << "lineno:" << lineno << endl;
+		//cout << "lineno:" << lineno << endl;
 	}
 	else {
 		cout << "token文件未打开" << endl;

@@ -6,6 +6,7 @@ bool flagtree = false;
 
 void Analyze(TreeNode* root)
 {
+	cout << "进入语义分析..." << endl;
 	CreateTable();
 	initialize();
 
@@ -15,6 +16,7 @@ void Analyze(TreeNode* root)
 	bianli(root);
 	// 撤销符号表
 	printSymbTable("./Docs/symbtable.txt");
+	cout << "语义分析完成" << endl;
 }
 
 void initialize()
@@ -35,6 +37,7 @@ void initialize()
 //自定义类型内部结构分析函数
 typeIR* nameType(TreeNode* t) {
 	symbtable** Entry = new symbtable*;
+	*Entry = nullptr;
 	int i = 0;
 	if (flagtree)i++;
 	bool flag = FindEntry(t->name[i], false, Entry);
@@ -128,6 +131,7 @@ void TypeDecPart(TreeNode* t) {
 
 	//下面写处理过程
 	symbtable** Entry = new symbtable*;
+	*Entry = nullptr;
 	int i = 0;
 	if (t->kind.dec == IdK) i++;
 	for (; i < t->name.size(); i++) {
@@ -141,6 +145,8 @@ void TypeDecPart(TreeNode* t) {
 			a->idtype = TypeProcess(t);
 			flagtree = false;
 			Enter(t->name[0], a, Entry);
+			// 回填
+			t->table.push_back(*Entry);
 		}
 	}TypeDecPart(t->sibling);
 	return;
@@ -151,6 +157,7 @@ void VarDecList(TreeNode* t) {
 		return;
 	//下面写处理过程
 	symbtable** Entry = new symbtable*;
+	*Entry = nullptr;
 	int i = 0;
 	if (t->kind.dec == IdK) i++;
 	for (; i < t->name.size(); i++) {
@@ -167,6 +174,8 @@ void VarDecList(TreeNode* t) {
 			if (a->idtype != nullptr)
 				a->More.VarAttr.off = off + a->idtype->size;
 			Enter(t->name[i], a, Entry);
+			// 符号表回填TreeNode
+			t->table.push_back(*Entry);
 		}
 	}
 	VarDecList(t->sibling);
@@ -180,6 +189,7 @@ ParamTable* ParaDecList(TreeNode* t) {
 	ParamTable* paralist = nullptr, * dt = nullptr;
 	for (int i = 0; i < t->name.size(); i++) {
 		symbtable** Entry = new symbtable*;
+		*Entry = nullptr;
 		bool flag = FindEntry(t->name[i], false, Entry);
 		if (flag)
 			cout << t->lineno << "形参标识符" + t->name[i] + "重复声明" << endl;
@@ -190,7 +200,9 @@ ParamTable* ParaDecList(TreeNode* t) {
 			a->More.VarAttr.access = dir;
 			a->More.VarAttr.level = level;
 			a->More.VarAttr.off = off + a->idtype->size;
+
 			Enter(t->name[i], a, Entry);
+			t->table.push_back(*Entry);
 			parat = new ParamTable;
 			if (paralist == nullptr)
 				paralist = parat;
@@ -214,8 +226,11 @@ void ProcDecPart(TreeNode* t) {
 	procir->More.ProcAttr.level = level;
 	ParamTable* paramt = new ParamTable;
 	procir->More.ProcAttr.param = paramt;
+
 	symbtable** Entry = new symbtable*;
+	*Entry = nullptr;
 	Enter(t->name[0], procir, Entry);
+	t->table.push_back(*Entry);
 	//下面写处理过程
 	CreateTable();
 	//处理形参，并将形参表给函数的符号表内的param项
@@ -231,6 +246,7 @@ void ProcDecPart(TreeNode* t) {
 typeIR* Expr(TreeNode* t, AccessKind* Ekind) {
 	if (t->kind.exp == IdEK) {
 		symbtable** Entry = new symbtable*;
+		*Entry = nullptr;
 		bool flag = FindEntry(t->name[0], true, Entry);
 		if (!flag)
 			cout << t->lineno << "表达式语句中" + t->name[0] + "未声明" << endl;
@@ -320,6 +336,7 @@ void assignstatement(TreeNode* t) {
 //过程调用语句分析处理函数
 void callstatement(TreeNode* t) {
 	symbtable** Entry = new symbtable*;
+	*Entry = nullptr;
 	bool flag = FindEntry(t->child[0]->name[0], true, Entry);
 	if (!flag)
 		cout << t->lineno << "函数" + t->child[0]->name[0] + "未声明" << endl;
@@ -392,6 +409,7 @@ void whilestatement(TreeNode* t) {
 //读语句分析处理函数
 void readstatement(TreeNode* t) {
 	symbtable** Entry = new symbtable*;
+	*Entry = nullptr;
 	//for (int i = 0; i < t->name.size(); i++) {}
 	bool flag = FindEntry(t->name[0], true, Entry);
 	if (!flag)
