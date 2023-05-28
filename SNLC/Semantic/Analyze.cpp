@@ -3,6 +3,7 @@
 typeIR* intPtr, * charPtr, * boolPtr;
 bool flagtree = false;
 
+
 void Analyze(TreeNode* root)
 {
 	CreateTable();
@@ -405,7 +406,7 @@ void writestatement(TreeNode* t) {
 	return;
 }
 //返回语句分析处理程序
-void returnstatment(TreeNode* t) {
+void returnstatement(TreeNode* t) {
 	return;
 }
 //语句序列分析处理函数
@@ -429,7 +430,7 @@ void statement(TreeNode* t) {
 		callstatement(t);
 	}
 	else if (t->kind.stmt == ReturnK) {
-		returnstatment(t);
+		returnstatement(t);
 	}
 	return;
 }

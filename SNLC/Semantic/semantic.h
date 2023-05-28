@@ -100,8 +100,8 @@ extern int off;
 
 /*---symbTable.cpp---*/
 
-// 创建当前空符号表
-void NewTable();
+//// 创建当前空符号表
+//void NewTable();
 
 // 创建新的局部化单位的空符号表
 void CreateTable();
@@ -121,26 +121,26 @@ bool SearchoneTable(string id, int currentLevel, symbtable** Entry);
 //在域表中查找域名
 bool FindField(string Id, fieldChain* head, fieldChain** Entry);
 
-// 属性查询
-void FindAttr();
-
-// 判断类型是否相容
-void Compat();
-
-// 创建当前空类型内部表示
-void NewTy();
-
-// 创建当前空记录类型中..
-void NewBody();
-
-// 创建当前空形参链表
-void NewParam();
-
-// 错误提示
-void ErrorPrompt();
-
-// 打印空格
-void printTab();
+//// 属性查询
+//void FindAttr();
+//
+//// 判断类型是否相容
+//void Compat();
+//
+//// 创建当前空类型内部表示
+//void NewTy();
+//
+//// 创建当前空记录类型中..
+//void NewBody();
+//
+//// 创建当前空形参链表
+//void NewParam();
+//
+//// 错误提示
+//void ErrorPrompt();
+//
+//// 打印空格
+//void printTab();
 
 // 打印符号表
 void printSymbTable(string path);
