@@ -85,6 +85,8 @@ struct Attr {		//记录语法树节点其他属性
 	ExpAttr expAttr;
 };
 
+
+struct symbtable;
 struct TreeNode
 {
 	TreeNode* child[3];	//指向子语法树节点指针,0是程序头,1是声明，2是程序体
@@ -94,7 +96,8 @@ struct TreeNode
 	Kind kind;					//记录语法树节点的具体类型
 	int idnum = 0;				//记录一个节点中标志符个数
 	vector<string> name;	//容器成员是节点中的标志符的名字
-	vector<int> table;	//	容器成员是节点中的各个标志符在符号表中的入口
+	//vector<int*> table;	//	容器成员是节点中的各个标志符在符号表中的入口
+	vector<symbtable*> table;
 	string type_name;	//记录类型名，当节点为声明类型且类型是由类型标志符表示是有效
 	Attr attr;				//记录语法树节点其他属性
 };

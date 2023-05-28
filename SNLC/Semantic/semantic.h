@@ -80,7 +80,7 @@ struct typeIR
 		{
 			struct typeIR* indexTy;
 			struct typeIR* elemTy;
-		}ArrayAttr;
+		} ArrayAttr;
 		fieldChain* body; /*记录类型中的域链*/
 	} More;
 };
@@ -100,8 +100,8 @@ extern symbtable Scope[10000];//符号表
 
 /*---symbTable.cpp---*/
 
-// 创建当前空符号表
-void NewTable();
+//// 创建当前空符号表
+//void NewTable();
 
 // 创建新的局部化单位的空符号表
 void CreateTable();
@@ -121,26 +121,26 @@ bool SearchoneTable(string id, int currentLevel, symbtable** Entry);
 //在域表中查找域名
 bool FindField(string Id, fieldChain* head, fieldChain** Entry);
 
-// 属性查询
-void FindAttr();
-
-// 判断类型是否相容
-void Compat();
-
-// 创建当前空类型内部表示
-void NewTy();
-
-// 创建当前空记录类型中..
-void NewBody();
-
-// 创建当前空形参链表
-void NewParam();
-
-// 错误提示
-void ErrorPrompt();
-
-// 打印空格
-void printTab();
+//// 属性查询
+//void FindAttr();
+//
+//// 判断类型是否相容
+//void Compat();
+//
+//// 创建当前空类型内部表示
+//void NewTy();
+//
+//// 创建当前空记录类型中..
+//void NewBody();
+//
+//// 创建当前空形参链表
+//void NewParam();
+//
+//// 错误提示
+//void ErrorPrompt();
+//
+//// 打印空格
+//void printTab();
 
 // 打印符号表
 void printSymbTable(string path);
@@ -197,7 +197,7 @@ typeIR* arrayVar(TreeNode* t);
 typeIR* recordVar(TreeNode* t);
 
 // 处理赋值语句
-void Assignstatement(TreeNode* t);
+void assignstatement(TreeNode* t);
 
 // 处理调用语句
 void callstatement(TreeNode* t);
@@ -206,16 +206,16 @@ void callstatement(TreeNode* t);
 void ifstatement(TreeNode* t);
 
 // 处理循环语句
-void Whilestatement(TreeNode* t);
+void whilestatement(TreeNode* t);
 
 // 处理读语句
 void readstatement(TreeNode* t);
 
 // 处理写语句
-void Writestatement(TreeNode* t);
+void writestatement(TreeNode* t);
 
 // 处理返回语句
-void Returnstatement(TreeNode* t);
+void returnstatement(TreeNode* t);
 
 // 语法分析主程序
 void Analyze(TreeNode *currentP);

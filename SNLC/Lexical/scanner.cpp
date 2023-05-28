@@ -280,6 +280,7 @@ int reservedLookup(string s)
 
 void getTokenList(string inputFile, string outputFile)
 {
+	cout << "进入词法分析..." << endl;
 	string query;
 	int linenum = 0;
 	state sta = START;
@@ -503,6 +504,7 @@ void getTokenList(string inputFile, string outputFile)
 	}
 	fin.close();
 	fout.close();
+	cout << "词法分析完成..." << endl;
 }
 
 
