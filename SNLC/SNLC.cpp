@@ -8,9 +8,13 @@
 int main()
 {
     getTokenList("./Docs/snls.txt", "./Docs/token.txt");
+    cout << "1111" << endl;
     TreeNode* root = DesParse();
-    Analyze(root);
+    cout << "2222" << endl;
+    //Analyze(root);
     std::cout << "Hello World!\n";
+
+    system("PAUSE");
 }
 
 /// vs

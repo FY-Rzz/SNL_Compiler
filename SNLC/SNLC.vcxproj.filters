@@ -116,7 +116,6 @@
       <Filter>源文件\docs</Filter>
     </Text>
     <Text Include="Docs\token.txt" />
-    <Text Include="Docs\treeDes.txt" />
     <Text Include="Docs\symbtable.txt" />
   </ItemGroup>
 </Project>
