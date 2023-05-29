@@ -8,7 +8,9 @@ CodeFile* GenMidCode(TreeNode* t) {
 	while (tmp->nodekind != ProcDecK) {
 		tmp = tmp->sibling;
 	}
-	if (tmp != NULL) tmp = tmp->child[0];
+	//if (tmp != NULL) tmp = tmp->child[0];
+
+	//可能要改
 	while (tmp != NULL) {
 		GenProcDec(tmp);
 		tmp = tmp->sibling;
@@ -17,7 +19,7 @@ CodeFile* GenMidCode(TreeNode* t) {
 	//生成入口代码
 	tmp = t->child[2];
 	ArgRecord* arg2 = ARGValue(initOff);
-	ArgRecord* arg3 = ARGValue(0);//偏移量
+	ArgRecord* arg3 = ARGValue(34);//偏移量
 	CodeFile* c = GenCode(MENTRY, NULL, arg2, arg3);
 
 	tmp_num = 0;//活动记录第一个临时变量的偏移???
@@ -25,7 +27,7 @@ CodeFile* GenMidCode(TreeNode* t) {
 	GenBody(tmp);
 
 	//活动记录的大小？？？回填arg2
-	arg2->value = Scope[tmp->table[0]].attrIR.More.ProcAttr.size;
+	//arg2->value = tmp->table[0]->attrIR.More.ProcAttr.size;
 
 	return head;
 }
@@ -34,11 +36,11 @@ CodeFile* GenMidCode(TreeNode* t) {
 void GenProcDec(TreeNode* t) {
 	int ProcEny = NewLabel();
 
-	Scope[t->table[0]].attrIR.More.ProcAttr.code;//过程入口标号回填到符号表过程标识符属性中
+	t->table[0]->attrIR.More.ProcAttr.code = ProcEny;//过程入口标号回填到符号表过程标识符属性中
 
 	ArgRecord* arg1 = ARGValue(ProcEny);
-	ArgRecord* arg2 = ARGValue(Scope[t->table[0]].attrIR.More.ProcAttr.level);//层数
-	ArgRecord* arg3 = ARGValue(Scope[t->table[0]].attrIR.More.ProcAttr.code);//偏移量 ?????????
+	ArgRecord* arg2 = ARGValue(t->table[0]->attrIR.More.ProcAttr.level);//层数
+	ArgRecord* arg3 = ARGValue(t->table[0]->attrIR.More.ProcAttr.code);//偏移量 ?????????
 
 	//处理过程声明中的过程声明
 	TreeNode* tmp = t->child[1];
@@ -109,9 +111,9 @@ void GenReadS(TreeNode* t)
 void GenCallS(TreeNode* t)
 {
 	//获得入口地址，??
-	int EntryAddr = Scope[t->table[0]].attrIR.More.ProcAttr.code;
+	int EntryAddr = t->table[0]->attrIR.More.ProcAttr.code;
 
-	ParamTable* p = Scope[t->table[0]].attrIR.More.ProcAttr.param;
+	ParamTable* p = t->table[0]->attrIR.More.ProcAttr.param;
 
 	TreeNode* tmp = t->child[1];
 	while (tmp != NULL) {
@@ -196,9 +198,9 @@ ArgRecord* GenArray(ArgRecord* Vlarg, TreeNode* t, int low, int size)
 ArgRecord* GenVar(TreeNode* t)
 {
 	string id = t->name[0];
-	AccessKind acc = (AccessKind)Scope[t->table[0]].attrIR.More.VarAttr.access;
-	int lev = Scope[t->table[0]].attrIR.More.VarAttr.level;
-	int off = Scope[t->table[0]].attrIR.More.VarAttr.off;
+	AccessKind acc = (AccessKind)t->table[0]->attrIR.More.VarAttr.access;
+	int lev = t->table[0]->attrIR.More.VarAttr.level;
+	int off = t->table[0]->attrIR.More.VarAttr.off;
 	ArgRecord* Vlarg = ARGAddr(id, lev, off, acc);
 	ArgRecord* Varg = NULL;
 	if (t->attr.expAttr.varkind== IdV)
@@ -207,13 +209,13 @@ ArgRecord* GenVar(TreeNode* t)
 	}
 	else if (t->attr.expAttr.varkind == ArrayMembV)
 	{
-		int _size = Scope[t->table[0]].attrIR.More.VarAttr.off;
-		int low = Scope[t->table[0]].attrIR.More.VarAttr.level;
+		int _size = t->table[0]->attrIR.More.VarAttr.off;
+		int low = t->table[0]->attrIR.More.VarAttr.level;
 		Varg = GenArray(Vlarg, t->child[0], low, _size);
 	}
 	else if (t->attr.expAttr.varkind == FieldMembV)
 	{
-		fieldChain* ff = Scope[t->table[0]].attrIR.idtype->More.body;//是否是t
+		fieldChain* ff = t->table[0]->attrIR.idtype->More.body;//是否是t
 		Varg = GenField(Vlarg, t->child[0], ff);
 	}
 	return Varg;
