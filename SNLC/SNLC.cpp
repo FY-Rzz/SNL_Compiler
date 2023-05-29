@@ -13,7 +13,7 @@ int main()
     outputTreeNode(root);
     cout << "语法树输出完成" << endl;
     CodeFile* c = GenMidCode(root);
-
+    LoopOpti();
     std::cout << "Hello World!\n";
 
     system("PAUSE");

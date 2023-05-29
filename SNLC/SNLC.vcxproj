@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grammar\grammar.h" />
+    <ClInclude Include="Intermediate_optimization\LoopOpti.h" />
     <ClInclude Include="Lexical\lexical.h" />
     <ClInclude Include="Intermediate_generation\midcode_g.h" />
     <ClInclude Include="Semantic\semantic.h" />

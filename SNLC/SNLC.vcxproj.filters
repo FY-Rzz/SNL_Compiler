@@ -24,6 +24,7 @@
     <ClInclude Include="Intermediate_generation\midcode_g.h" />
     <ClInclude Include="Semantic\semantic.h" />
     <ClInclude Include="SNLC.h" />
+    <ClInclude Include="Intermediate_optimization\LoopOpti.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Docs\snl2.txt" />

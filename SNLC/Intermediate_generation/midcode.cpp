@@ -72,11 +72,11 @@ void GenWhileS(TreeNode* t)
 	ArgRecord* InLarg = ARGLabel(NewLabel());
 	ArgRecord* OutLarg = ARGLabel(NewLabel());
 	ArgRecord* Earg = GenExpr((*t).child[0]);
-	GenCode(LABEL, InLarg, NULL, NULL);
+	GenCode(WHILESTART, InLarg, NULL, NULL);
 	GenCode(JUMP0, Earg, OutLarg, NULL);
 	GenBody((*t).child[1]);
 	GenCode(JUMP, InLarg, NULL, NULL);
-	GenCode(LABEL, OutLarg, NULL, NULL);
+	GenCode(ENDWHILE, OutLarg, NULL, NULL);
 }
 
 // 条件语句中间代码生成函数
