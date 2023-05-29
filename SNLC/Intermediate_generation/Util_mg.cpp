@@ -5,6 +5,7 @@ ArgRecord* NewTemp(AccessKind access) {
 	ArgRecord* tmp = new ArgRecord();
 	tmp->form = AddrForm;
 	tmp-> Addr.name = to_string(tmp_num); //???
+	//cout << "temp" + tmp->Addr.name << endl;;
 	tmp-> Addr.dataLevel = -1;
 	tmp-> Addr.dataOff = tmp_num;
 	tmp-> Addr.access = access;
@@ -51,15 +52,6 @@ ArgRecord* ARGAddr(string id, int level, int off, AccessKind access) { //修改str
 // 输出中间代码
 void PrintMidCode(CodeFile* firstCode) {
 	while (firstCode) {
-
-		//ADD, SUB, MULT, DIV,
-		//	// 关系运算
-		//	EQC, LTC,
-		//	// 语句
-		//	READC, WRITEC, RETURNC, ASSIG, AADD, LABEL, JUMP, JUMP0, CALL, VARACT, VALACT,
-		//	// 定位
-		//	PENTRY, ENDPROC, MENTRY
-
 
 		cout << "(";
 		switch (firstCode->onecode->codekind) {
@@ -136,6 +128,7 @@ void PrintMidCode(CodeFile* firstCode) {
 					cout << firstCode->onecode->arg1-> label;
 					break;
 				case AddrForm:
+					if (firstCode->onecode->arg1->Addr.name[0] >= '0' && firstCode->onecode->arg1->Addr.name[0] <= '9') cout << "temp";
 					cout << firstCode->onecode->arg1-> Addr.name;
 					break;
 			}
@@ -154,6 +147,7 @@ void PrintMidCode(CodeFile* firstCode) {
 				cout << firstCode->onecode->arg2-> label;
 				break;
 			case AddrForm:
+				if (firstCode->onecode->arg2->Addr.name[0] >= '0' && firstCode->onecode->arg2->Addr.name[0] <= '9') cout << "temp";
 				cout << firstCode->onecode->arg2-> Addr.name;
 				break;
 			}
@@ -172,6 +166,7 @@ void PrintMidCode(CodeFile* firstCode) {
 				cout << firstCode->onecode->arg3-> label;
 				break;
 			case AddrForm:
+				if (firstCode->onecode->arg3->Addr.name[0] >= '0' && firstCode->onecode->arg3->Addr.name[0] <= '9') cout << "temp";
 				cout << firstCode->onecode->arg3-> Addr.name;
 				break;
 			}

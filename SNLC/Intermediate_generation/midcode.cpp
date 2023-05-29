@@ -5,6 +5,7 @@
 
 // 中间代码生成主函数
 CodeFile* GenMidCode(TreeNode* t) {
+	tmp_num = 1;
 	TreeNode* tmp = t;
 	tmp = t->child[1];
 	while (tmp->nodekind != ProcDecK) {
@@ -25,9 +26,7 @@ CodeFile* GenMidCode(TreeNode* t) {
 	ArgRecord* arg3 = ARGValue(34);//偏移量
 	CodeFile* c = GenCode(MENTRY, NULL, arg2, arg3);
 
-	tmp_num = 0;//活动记录第一个临时变量的偏移???
-	//PrintMidCode(head);
-	//cout << endl << endl;
+	tmp_num ++;//活动记录第一个临时变量的偏移???
 	GenBody(tmp->child[0]);
 
 	//活动记录的大小？？？回填arg2
@@ -73,11 +72,11 @@ void GenWhileS(TreeNode* t)
 	ArgRecord* InLarg = ARGLabel(NewLabel());
 	ArgRecord* OutLarg = ARGLabel(NewLabel());
 	ArgRecord* Earg = GenExpr((*t).child[0]);
-	GenCode(LABEL, InLarg, NULL, NULL);
+	GenCode(WHILESTART, InLarg, NULL, NULL);
 	GenCode(JUMP0, Earg, OutLarg, NULL);
 	GenBody((*t).child[1]);
 	GenCode(JUMP, InLarg, NULL, NULL);
-	GenCode(LABEL, OutLarg, NULL, NULL);
+	GenCode(ENDWHILE, OutLarg, NULL, NULL);
 }
 
 // 条件语句中间代码生成函数

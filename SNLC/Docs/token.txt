@@ -9,7 +9,13 @@
 3 0 t1
 3 0 v1
 3 25 SingleSeparator
-3 0 v2
+3 0 n
+3 25 SingleSeparator
+3 0 m
+3 25 SingleSeparator
+3 0 j
+3 25 SingleSeparator
+3 0 k
 3 18 SingleSeparator
 4 19 ReseverWord
 4 0 a
