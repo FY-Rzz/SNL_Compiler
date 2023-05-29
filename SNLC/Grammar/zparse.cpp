@@ -709,7 +709,7 @@ TreeNode* ReturnStm() {//创建语句节点，类型为返回语句，
 	Match(RETURN);
 	return t;
 }
-void CallStmRest(TreeNode* t) { //
+void CallStmRest(TreeNode* t) { //函数调用语句，匹配左括号，实参列表，右括号
 	Match(LPAREN);
 	(*t).child[1] = ActParamList();
 	Match(RPAREN);
@@ -748,7 +748,7 @@ TreeNode* ActParamMore() { //循环依次处理实参
 	}
 	return t;
 }
-TreeNode* Exp() {
+TreeNode* Exp() { //整个表达式中可能有‘=’，‘<’，以此为分隔，分成两个simple_exp，分别作为节点的0和1儿子
 	int line = token.lineShow ;
 	TreeNode* t = Simple_exp();
 	if (token.lex == LT || token.lex == EQ) {
@@ -766,7 +766,7 @@ TreeNode* Exp() {
 	}
 	return t;
 }
-TreeNode* Simple_exp() {
+TreeNode* Simple_exp() { // + - 符号，分隔两边的Term(只含有乘除)
 	int line = token.lineShow ;
 	TreeNode* t = Term();
 	while (token.lex == PLUS || token.lex == MINUS) {
@@ -782,7 +782,7 @@ TreeNode* Simple_exp() {
 	}
 	return t;
 }
-TreeNode* Term() {
+TreeNode* Term() {// * / 符号，分隔两边的factor，如果多次乘除放在1号儿子的1号儿子节点
 	int line = token.lineShow ;
 	TreeNode* t = Factor();
 	while (token.lex == TIMES || token.lex == OVER) {
@@ -798,9 +798,9 @@ TreeNode* Term() {
 	}
 	return t;
 }
-TreeNode* Factor() {
+TreeNode* Factor() { //处理因子  int实数、标识符、左括号
 	TreeNode* t = NULL;
-	if (token.lex == INTC) {
+	if (token.lex == INTC) { //int实数
 		t = new TreeNode();
 		(*t).lineno = token.lineShow ;
 		(*t).nodekind = ExpK;
@@ -808,10 +808,10 @@ TreeNode* Factor() {
 		(*t).attr.expAttr.val = stoi(token.sem);
 		Match(INTC);
 	}
-	else if (token.lex == ID) {
+	else if (token.lex == ID) {  //标识符  但可能是数组或者结构体，调用variable
 		t = Variable();
 	}
-	else if (token.lex == LPAREN) {
+	else if (token.lex == LPAREN) {  //左括号，括号表达式优先级最高放在最后面，再次调用exp
 		Match(LPAREN);
 		t = Exp();
 		Match(RPAREN);
@@ -826,7 +826,7 @@ TreeNode* Factor() {
 	}
 	return t;
 }
-TreeNode* Variable() {
+TreeNode* Variable() {  //处理表达式中标识符
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = ExpK;
 	(*t).kind.exp = IdEK;
@@ -845,7 +845,7 @@ void VariMore(TreeNode* t) {
 		|| token.lex == SEMI || token.lex == COMMA || token.lex == THEN || token.lex == RMIDPAREN
 		|| token.lex == ELSE || token.lex == FI || token.lex == DO || token.lex == ENDWH || token.lex == END) {
 	}
-	else if (token.lex == LMIDPAREN) {
+	else if (token.lex == LMIDPAREN) { // 数组下标一定是表达式
 		Match(LMIDPAREN);
 		(*t).child[0] = Exp();
 		(*t).attr.expAttr.varkind = ArrayMembV;
