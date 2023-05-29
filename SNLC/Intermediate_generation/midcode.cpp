@@ -102,8 +102,8 @@ void GenWriteS(TreeNode* t)
 // 读语句中间代码生成函数
 void GenReadS(TreeNode* t)
 {
-	symbtable s = Scope[(*t).table[0]];
-	ArgRecord* Varg = ARGAddr(s.idname, s.attrIR.More.VarAttr.level, s.attrIR.More.VarAttr.off, s.attrIR.More.VarAttr.access);
+	symbtable* s = (*t).table[0];
+	ArgRecord* Varg = ARGAddr(s->idname, s->attrIR.More.VarAttr.level, s->attrIR.More.VarAttr.off, s->attrIR.More.VarAttr.access);
 	GenCode(READC, Varg, NULL, NULL);
 }
 
@@ -154,7 +154,14 @@ ArgRecord* GenExpr(TreeNode* t)
 	else if ((*t).kind.exp == OpK)
 	{
 		ArgRecord* Larg = GenExpr((*t).child[0]);
-		CodeKind op = (*t).attr.expAttr.op;
+		CodeKind op;
+		LexType opp = (*t).attr.expAttr.op;   //ADD, SUB, MULT, DIV,EQC, LTC, 
+		if (opp == PLUS) op = ADD;
+		else if(opp == MINUS) op = SUB;
+		else if (opp == TIMES) op = MULT;
+		else if (opp == OVER) op = DIV;
+		else if (opp == EQ) op = EQC;
+		else if (opp == LT) op = LTC;
 		ArgRecord* Rarg = GenExpr((*t).child[1]);
 		ArgRecord* temp1 = NewTemp(dir);
 		GenCode(op, Larg, Rarg, temp1);
@@ -166,7 +173,7 @@ ArgRecord* GenExpr(TreeNode* t)
 // 域成员变量的中间代码生成(有问题，偏移)
 ArgRecord* GenField(ArgRecord* V1arg, TreeNode* t, fieldChain* head)
 {
-	ArgRecord* offArg = ARGAddr(head->idname, Scope[t->table[0]].attrIR.More.VarAttr.level, head->offset, Scope[t->table[0]].attrIR.More.VarAttr.access);
+	ArgRecord* offArg = ARGAddr(head->idname, (*t).table[0]->attrIR.More.VarAttr.level, head->offset, (*t).table[0]->attrIR.More.VarAttr.access);
 	ArgRecord* temp1 = NewTemp(dir);
 	GenCode(AADD, V1arg, offArg, temp1);
 	ArgRecord* FieldV = NULL;
