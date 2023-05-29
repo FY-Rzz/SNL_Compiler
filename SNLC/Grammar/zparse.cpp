@@ -551,7 +551,7 @@ void FidMore(TreeNode* t) {
 TreeNode* ProcDecPart() {
 	return DeclarePart();
 }
-TreeNode* ProcBody() {
+TreeNode* ProcBody() { //提供错误处理，防止不存在函数体
 	TreeNode* t = ProgramBody();
 	if (t == NULL) {
 		string a = to_string(token.lineShow ) + "行有错误";
@@ -562,7 +562,7 @@ TreeNode* ProcBody() {
 	}
 	return t;
 }
-TreeNode* ProgramBody() {
+TreeNode* ProgramBody() {  //创建语句序列标志节点StmLK,匹配BEGIN，处理语句函数，匹配END
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = StmLK;
 	(*t).lineno = token.lineShow ;
@@ -571,13 +571,13 @@ TreeNode* ProgramBody() {
 	Match(END);
 	return t;
 }
-TreeNode* StmList() {
+TreeNode* StmList() { //处理语句函数，循环
 	TreeNode* t = Stm();
 	TreeNode* p = StmMore();
 	(*t).sibling = p;
 	return t;
 }
-TreeNode* StmMore() {
+TreeNode* StmMore() { //执行完stm（）后紧接着调用，如果是逗号则继续执行StmList，
 	TreeNode* t = NULL;
 	if (token.lex == END || token.lex == ENDWH || token.lex == ELSE || token.lex == FI) {}
 	else if (token.lex = SEMI) {
@@ -593,7 +593,7 @@ TreeNode* StmMore() {
 	}
 	return t;
 }
-TreeNode* Stm() {
+TreeNode* Stm() { //根据语句的lex不同，判断调用哪个语句处理函数
 	TreeNode* t = NULL;
 	if (token.lex == IF) {
 		t = ConditionalStm();
@@ -610,7 +610,7 @@ TreeNode* Stm() {
 	else if (token.lex == WRITE) {
 		t = OutputStm();
 	}
-	else if (token.lex == ID) {
+	else if (token.lex == ID) {  //如果语句以标识符开始，先创建语句节点，创建它的0号儿子节点（表达式语句-》标识符类型），它的1号儿子节点由asscall函数决定
 		TreeNode* f = new TreeNode();
 		(*f).nodekind = StmtK;
 		(*f).lineno = token.lineShow ;
@@ -636,14 +636,14 @@ TreeNode* Stm() {
 	}
 	return t;
 }
-void AssCall(TreeNode* t) {
+void AssCall(TreeNode* t) { //语句以标识符开始，大致分成2种情况：赋值语句和函数；
 	Match(ID);
-	if (token.lex == ASSIGN || token.lex == LMIDPAREN || token.lex == DOT) {
+	if (token.lex == ASSIGN || token.lex == LMIDPAREN || token.lex == DOT) { //赋值语句，f的节点赋予赋值语句类型
 		AssignmentRest(t);
 		t->kind.stmt = AssignK;
 
 	}
-	else if (token.lex == LPAREN) {
+	else if (token.lex == LPAREN) { //函数调用，f节点赋值为调用类型
 		CallStmRest(t);
 		t->kind.stmt = CallK;
 	}
@@ -652,15 +652,15 @@ void AssCall(TreeNode* t) {
 		InputError(a, "./Docs/error.txt");
 		//cout << "文件提前结束";
 		exit(0);
-		//读入下一个单词
+		//读入下一个单词 
 	}
 }
-void AssignmentRest(TreeNode* t) {
-	VariMore(t->child[0]);
+void AssignmentRest(TreeNode* t) {  //处理赋值语句后续
+	VariMore(t->child[0]); //处理可能存在的数组或结构体
 	Match(ASSIGN);
-	t->child[1] = Exp();
+	t->child[1] = Exp();  
 }
-TreeNode* ConditionalStm() {
+TreeNode* ConditionalStm() { //创建语句节点，类型为判断语句，匹配IF，处理之后表达式，匹配THEN，stmList处理之后一系列语句，判断是否有ELSE，有则继续处理，没有匹配FI
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = StmtK;
 	(*t).kind.stmt = IfK;
@@ -676,7 +676,7 @@ TreeNode* ConditionalStm() {
 	Match(FI);
 	return t;
 }
-TreeNode* LoopStm() {
+TreeNode* LoopStm() {////创建语句节点，类型为循环语句，
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = StmtK;
 	(*t).kind.stmt = WhileK;
@@ -688,7 +688,7 @@ TreeNode* LoopStm() {
 	Match(ENDWH);
 	return t;
 }
-TreeNode* InputStm() {
+TreeNode* InputStm() {//创建语句节点，类型为循环语句，
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = StmtK;
 	(*t).kind.stmt = ReadK;
@@ -703,7 +703,7 @@ TreeNode* InputStm() {
 	Match(RPAREN);
 	return t;
 }
-TreeNode* OutputStm() {
+TreeNode* OutputStm() {//创建语句节点，类型为输出语句，
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = StmtK;
 	(*t).kind.stmt = WriteK;
@@ -714,7 +714,7 @@ TreeNode* OutputStm() {
 	Match(RPAREN);
 	return t;
 }
-TreeNode* ReturnStm() {
+TreeNode* ReturnStm() {//创建语句节点，类型为返回语句，
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = StmtK;
 	(*t).kind.stmt = ReturnK;
@@ -722,12 +722,12 @@ TreeNode* ReturnStm() {
 	Match(RETURN);
 	return t;
 }
-void CallStmRest(TreeNode* t) {
+void CallStmRest(TreeNode* t) { //函数调用语句，匹配左括号，实参列表，右括号
 	Match(LPAREN);
 	(*t).child[1] = ActParamList();
 	Match(RPAREN);
 }
-TreeNode* ActParamList() {
+TreeNode* ActParamList() { //处理实参列表
 	TreeNode* t = NULL;
 	if (token.lex == RPAREN) {}
 	else if (token.lex == ID || token.lex == INTC) {
@@ -745,7 +745,7 @@ TreeNode* ActParamList() {
 	}
 	return t;
 }
-TreeNode* ActParamMore() {
+TreeNode* ActParamMore() { //循环依次处理实参
 	TreeNode* t = NULL;
 	if (token.lex == RPAREN) {}
 	else if (token.lex == COMMA) {
@@ -761,7 +761,7 @@ TreeNode* ActParamMore() {
 	}
 	return t;
 }
-TreeNode* Exp() {
+TreeNode* Exp() { //整个表达式中可能有‘=’，‘<’，以此为分隔，分成两个simple_exp，分别作为节点的0和1儿子
 	int line = token.lineShow ;
 	TreeNode* t = Simple_exp();
 	if (token.lex == LT || token.lex == EQ) {
@@ -779,7 +779,7 @@ TreeNode* Exp() {
 	}
 	return t;
 }
-TreeNode* Simple_exp() {
+TreeNode* Simple_exp() { // + - 符号，分隔两边的Term(只含有乘除)
 	int line = token.lineShow ;
 	TreeNode* t = Term();
 	while (token.lex == PLUS || token.lex == MINUS) {
@@ -795,7 +795,7 @@ TreeNode* Simple_exp() {
 	}
 	return t;
 }
-TreeNode* Term() {
+TreeNode* Term() {// * / 符号，分隔两边的factor，如果多次乘除放在1号儿子的1号儿子节点
 	int line = token.lineShow ;
 	TreeNode* t = Factor();
 	while (token.lex == TIMES || token.lex == OVER) {
@@ -811,9 +811,9 @@ TreeNode* Term() {
 	}
 	return t;
 }
-TreeNode* Factor() {
+TreeNode* Factor() { //处理因子  int实数、标识符、左括号
 	TreeNode* t = NULL;
-	if (token.lex == INTC) {
+	if (token.lex == INTC) { //int实数
 		t = new TreeNode();
 		(*t).lineno = token.lineShow ;
 		(*t).nodekind = ExpK;
@@ -821,10 +821,10 @@ TreeNode* Factor() {
 		(*t).attr.expAttr.val = stoi(token.sem);
 		Match(INTC);
 	}
-	else if (token.lex == ID) {
+	else if (token.lex == ID) {  //标识符  但可能是数组或者结构体，调用variable
 		t = Variable();
 	}
-	else if (token.lex == LPAREN) {
+	else if (token.lex == LPAREN) {  //左括号，括号表达式优先级最高放在最后面，再次调用exp
 		Match(LPAREN);
 		t = Exp();
 		Match(RPAREN);
@@ -839,7 +839,7 @@ TreeNode* Factor() {
 	}
 	return t;
 }
-TreeNode* Variable() {
+TreeNode* Variable() {  //处理表达式中标识符
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = ExpK;
 	(*t).kind.exp = IdEK;
@@ -858,7 +858,7 @@ void VariMore(TreeNode* t) {
 		|| token.lex == SEMI || token.lex == COMMA || token.lex == THEN || token.lex == RMIDPAREN
 		|| token.lex == ELSE || token.lex == FI || token.lex == DO || token.lex == ENDWH || token.lex == END) {
 	}
-	else if (token.lex == LMIDPAREN) {
+	else if (token.lex == LMIDPAREN) { // 数组下标一定是表达式
 		Match(LMIDPAREN);
 		(*t).child[0] = Exp();
 		(*t).attr.expAttr.varkind = ArrayMembV;
