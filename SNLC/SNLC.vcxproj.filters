@@ -69,40 +69,22 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Lexical\lexical.h">
-      <Filter>源文件\Lexical</Filter>
-    </ClInclude>
-    <ClInclude Include="Semantic\semantic.h">
-      <Filter>源文件\Semantic</Filter>
-    </ClInclude>
-    <ClInclude Include="Grammar\grammar.h">
-      <Filter>源文件\Grammar</Filter>
-    </ClInclude>
-    <ClInclude Include="SNLC.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Intermediate_generation\midcode_g.h">
-      <Filter>源文件\Intermediate_generation</Filter>
-    </ClInclude>
-    <ClInclude Include="Intermediate_optimization\midcodeopt.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <ClInclude Include="Grammar\grammar.h" />
+    <ClInclude Include="Intermediate_optimization\LoopOpti.h" />
+    <ClInclude Include="Intermediate_optimization\midcodeopt.h" />
+    <ClInclude Include="Lexical\lexical.h" />
+    <ClInclude Include="Intermediate_generation\midcode_g.h" />
+    <ClInclude Include="Semantic\semantic.h" />
+    <ClInclude Include="SNLC.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Docs\snls.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
-    <Text Include="Docs\production.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
-    <Text Include="Docs\token.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
-    <Text Include="Docs\symbtable.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
     <Text Include="Docs\snl2.txt" />
     <Text Include="Docs\midcode.txt" />
     <Text Include="Docs\snl3.txt" />
+    <Text Include="Docs\snls.txt" />
+    <Text Include="Docs\production.txt" />
+    <Text Include="Docs\symbtable.txt" />
+    <Text Include="Docs\token.txt" />
+    <Text Include="Docs\snl4.txt" />
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ struct ConstDefT {
 extern vector<vector<CodeFile>> BaseBlock;
 
 // 划分基本快
-vector<vector<CodeFile>> DivBaseBlock(CodeFile* head, vector<vector<CodeFile>> baseBlock);
+vector<vector<CodeFile>> DivBaseBlock(CodeFile* head);
 
 // 常表达式优化主函数
 CodeFile* ConstOptimize();

@@ -6,19 +6,31 @@ ConstDefT * Chead = nullptr, * Ctail = nullptr;
 
 
 CodeFile* ConstOptimize() {
-    Chead = new ConstDefT;
-    Chead->former = nullptr;
-    Chead->next = nullptr;
-    Chead->variable = nullptr;
-    Ctail = Chead;
+    
 
 	// 划分基本块
     CodeFile* firstCode = new CodeFile;
-	DivBaseBlock(head, BaseBlock);
+    firstCode->next = nullptr;
+	BaseBlock = DivBaseBlock(head);
+    // 输出分块
+    //for (int i = 0; i < BaseBlock.size(); i++) {
+    //    for (int j = 0; j < BaseBlock[i].size(); j++) {
+    //        PrintMidCode();
+    //    }
+    //}
+
+
     // 循环处理
     for (int i = 0; i < BaseBlock.size(); i++) {
+        // 重置ConsDef表
+        Chead = new ConstDefT;
+        Chead->former = nullptr;
+        Chead->next = nullptr;
+        Chead->variable = nullptr;
+        Ctail = Chead;
+
         CodeFile* nextHead = OptiBlock(i);
-        if (firstCode == nullptr) {
+        if (firstCode->next == nullptr) {
             firstCode = nextHead;
         }
         else {
@@ -39,20 +51,20 @@ CodeFile* OptiBlock(int i)
     // 构建基本块
     CodeFile* bhead = new CodeFile;
     bhead->former = nullptr;
-    bhead->onecode = BaseBlock[i][0].onecode;
+    //bhead->onecode = BaseBlock[i][0].onecode;
     bhead->next = nullptr;
     CodeFile* bptr = bhead;
-    for (int j = 1; j < BaseBlock[i].size(); j++) {
+    for (int j = 0; j < BaseBlock[i].size(); j++) {
         CodeFile* btmp = new CodeFile;
         bptr->next = btmp;
         btmp->former = bptr;
-        bptr = bhead->next;
+        bptr = bptr->next;
         btmp->onecode = BaseBlock[i][j].onecode;
         btmp->next = nullptr;
     }
-
+    PrintMidCode(bhead->next);
     // 遍历处理
-    bptr = bhead;
+    bptr = bhead->next;
     while (bptr != nullptr) {
         MidCode* mcode = bptr->onecode;
         if (mcode->codekind == ADD || mcode->codekind == SUB || mcode->codekind == MULT
@@ -82,7 +94,7 @@ CodeFile* OptiBlock(int i)
     }
 
     // 返回处理过的CodeFile链
-    return bhead;
+    return bhead->next;
 }
 
 bool ArithC(CodeFile* code)
@@ -133,7 +145,7 @@ void SubstiArg(CodeFile* code, int i)
 bool FindConstT(ArgRecord* arg, ConstDefT** Entry)
 {
     ConstDefT* cptr = Chead->next;
-    while (cptr!=nullptr)
+    while (Chead->next!=nullptr && cptr!=nullptr )
     {
         if ((cptr->variable->Addr.dataLevel == arg->Addr.dataLevel) && (cptr->variable->Addr.dataOff == arg->Addr.dataOff)) {
             (*Entry) = cptr;
@@ -157,6 +169,7 @@ void AppendTable(ArgRecord* arg, int result)
         ConstDefT* newA = new ConstDefT;
         newA->constValue = result;
         newA->variable = arg;
+        newA->next = nullptr;
         // 连接表项 
         Ctail->next = newA;
         newA->former = Ctail;
@@ -177,7 +190,8 @@ void DelConst(ArgRecord* arg)
 }
 
 // 中间代码基本块划分函数
-vector<vector<CodeFile>> DivBaseBlock(CodeFile* head, vector<vector<CodeFile>> baseBlock) {
+vector<vector<CodeFile>> DivBaseBlock(CodeFile* head) {
+    vector<vector<CodeFile>> baseBlock;
     // 判断头节点是否为空
     if (head == NULL) 
         return baseBlock;
@@ -191,12 +205,12 @@ vector<vector<CodeFile>> DivBaseBlock(CodeFile* head, vector<vector<CodeFile>> b
         // 获取当前代码的类型
         CodeKind codekind = blockTail->onecode->codekind;
         // 判断是否需要结束当前基本块
-        if (codekind == JUMP0 || codekind == JUMP || codekind == RETURN || codekind == ENDPROC) {
+        if (codekind == JUMP0 || codekind == JUMP || codekind == RETURN || codekind == ENDPROC || codekind == VARACT) {
             // 将当前基本块加入到tmpBlock中
             do {
                 tmpBlock.push_back(*blockHead);
                 blockHead = blockHead->next;
-            } while (blockHead != blockTail);
+            } while (blockHead != blockTail->next);
             baseBlock.push_back(tmpBlock);
             tmpBlock.clear();
             // 将下一个代码作为新基本块的头节点

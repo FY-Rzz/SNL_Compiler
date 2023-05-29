@@ -58,7 +58,7 @@ void ungetNextChar();
 // -> int: 返回保留字词法对应的下标,若不是保留字则返回-1
 int reservedLookup(string s);
 
-// 取得所有单词
+// 取得所有单词token
 void getTokenList(string inputFile, string outputFile);
 
 // 测试程序
