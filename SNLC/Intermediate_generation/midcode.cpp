@@ -26,8 +26,8 @@ CodeFile* GenMidCode(TreeNode* t) {
 	CodeFile* c = GenCode(MENTRY, NULL, arg2, arg3);
 
 	tmp_num = 0;//活动记录第一个临时变量的偏移???
-	PrintMidCode(head);
-	cout << endl << endl;
+	//PrintMidCode(head);
+	//cout << endl << endl;
 	GenBody(tmp->child[0]);
 
 	//活动记录的大小？？？回填arg2

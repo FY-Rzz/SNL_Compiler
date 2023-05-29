@@ -25,14 +25,14 @@ struct ArgRecord {
 	Form form;
 	//union 
 	//{
-		int value;
-		int label;
+		int value; // 数值类
+		int label; // 标号类
 		struct {
 			string name;
 			int dataLevel;
 			int dataOff;
 			AccessKind access; // dir or indir
-		}Addr;
+		}Addr; // 地址类
 	//};
 	ArgRecord() {
 

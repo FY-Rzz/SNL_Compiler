@@ -124,10 +124,8 @@
     <Text Include="Docs\symbtable.txt">
       <Filter>源文件\docs</Filter>
     </Text>
-    <Text Include="Docs\treeDes.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
     <Text Include="Docs\snl2.txt" />
     <Text Include="Docs\midcode.txt" />
+    <Text Include="Docs\snl3.txt" />
   </ItemGroup>
 </Project>

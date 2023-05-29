@@ -167,6 +167,7 @@
   <ItemGroup>
     <Text Include="Docs\midcode.txt" />
     <Text Include="Docs\snl2.txt" />
+    <Text Include="Docs\snl3.txt" />
     <Text Include="Docs\snls.txt" />
     <Text Include="Docs\production.txt" />
     <Text Include="Docs\symbtable.txt" />

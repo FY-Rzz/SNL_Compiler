@@ -2,22 +2,22 @@
 #include "../Intermediate_generation/midcode_g.h"
 
 struct ConstDefT {
-	ConstDefT* former;
-	ArgRecord* variable;
+	ConstDefT* former; // 前一常量定值节点
+	ArgRecord* variable; // ARG结构指针
 	int constValue; // 变量当前定值
-	ConstDefT* next;
+	ConstDefT* next; // 下一常量定值节点
 };
 
-extern vector<CodeFile*> BaseBlock;
+extern vector<vector<CodeFile>> BaseBlock;
 
 // 划分基本快
-vector<CodeFile*> DivBaseBlock(CodeFile* head, vector<CodeFile*> baseBlock);
+vector<vector<CodeFile>> DivBaseBlock(CodeFile* head, vector<vector<CodeFile>> baseBlock);
 
 // 常表达式优化主函数
 CodeFile* ConstOptimize();
 
 // 基本块内的常表达式优化函数
-void OptiBlock(int i);
+CodeFile* OptiBlock(int i);
 
 // 算术和比较运算的优化处理
 bool ArithC(CodeFile* code);
