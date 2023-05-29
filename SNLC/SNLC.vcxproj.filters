@@ -1,129 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="源文件\Lexical">
-      <UniqueIdentifier>{af5f77ac-911e-4842-899e-f7aeb9c9cdea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Semantic">
-      <UniqueIdentifier>{2d660087-1ca2-4295-8a9a-938f8b4b4970}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Intermediate_generation">
-      <UniqueIdentifier>{5ba31ee3-8e61-40e0-bbb4-9e374f73d594}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Intermediate_optimization">
-      <UniqueIdentifier>{7aa6ee91-1d85-489c-916a-0b3d3aade58c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Object_code">
-      <UniqueIdentifier>{d2542418-ea4f-43d7-9e86-39b216dd014a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Storage_free">
-      <UniqueIdentifier>{53abb377-4f19-47cb-af5c-197541439973}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\docs">
-      <UniqueIdentifier>{65c14d38-1d61-4b44-bfc3-2fe2b0a5d086}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Test">
-      <UniqueIdentifier>{3ed9061c-8a9d-40e7-a20b-10ee791e64ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Grammar">
-      <UniqueIdentifier>{56fc17be-9e35-4960-8c6a-809c48bb84f0}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Semantic\Analyze.cpp" />
+    <ClCompile Include="Object_code\Code.cpp" />
+    <ClCompile Include="Object_code\CodeGen.cpp" />
+    <ClCompile Include="Intermediate_optimization\ConstOpti.cpp" />
+    <ClCompile Include="Intermediate_optimization\ECCsaving.cpp" />
+    <ClCompile Include="Intermediate_optimization\LoopOpti.cpp" />
+    <ClCompile Include="Intermediate_generation\midcode.cpp" />
+    <ClCompile Include="Lexical\scanner.cpp" />
+    <ClCompile Include="SNLC.cpp" />
+    <ClCompile Include="Semantic\symbTable.cpp" />
+    <ClCompile Include="Lexical\Util_Lex.cpp" />
+    <ClCompile Include="Grammar\Util_LL1.cpp" />
+    <ClCompile Include="Intermediate_generation\Util_mg.cpp" />
+    <ClCompile Include="Storage_free\Util_sf.cpp" />
+    <ClCompile Include="Grammar\zparse.cpp" />
+    <ClCompile Include="Test\test1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SNLC.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Lexical\scanner.cpp">
-      <Filter>源文件\Lexical</Filter>
-    </ClCompile>
-    <ClCompile Include="Lexical\Util_Lex.cpp">
-      <Filter>源文件\Lexical</Filter>
-    </ClCompile>
-    <ClCompile Include="Grammar\zparse.cpp">
-      <Filter>源文件\Grammar</Filter>
-    </ClCompile>
-    <ClCompile Include="Grammar\Util_LL1.cpp">
-      <Filter>源文件\Grammar</Filter>
-    </ClCompile>
-    <ClCompile Include="Semantic\symbTable.cpp">
-      <Filter>源文件\Semantic</Filter>
-    </ClCompile>
-    <ClCompile Include="Semantic\Analyze.cpp">
-      <Filter>源文件\Semantic</Filter>
-    </ClCompile>
-    <ClCompile Include="Intermediate_generation\midcode.cpp">
-      <Filter>源文件\Intermediate_generation</Filter>
-    </ClCompile>
-    <ClCompile Include="Intermediate_generation\Util_mg.cpp">
-      <Filter>源文件\Intermediate_generation</Filter>
-    </ClCompile>
-    <ClCompile Include="Intermediate_optimization\ConstOpti.cpp">
-      <Filter>源文件\Intermediate_optimization</Filter>
-    </ClCompile>
-    <ClCompile Include="Intermediate_optimization\ECCsaving.cpp">
-      <Filter>源文件\Intermediate_optimization</Filter>
-    </ClCompile>
-    <ClCompile Include="Intermediate_optimization\LoopOpti.cpp">
-      <Filter>源文件\Intermediate_optimization</Filter>
-    </ClCompile>
-    <ClCompile Include="Object_code\Code.cpp">
-      <Filter>源文件\Object_code</Filter>
-    </ClCompile>
-    <ClCompile Include="Object_code\CodeGen.cpp">
-      <Filter>源文件\Object_code</Filter>
-    </ClCompile>
-    <ClCompile Include="Storage_free\Util_sf.cpp">
-      <Filter>源文件\Storage_free</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\test1.cpp">
-      <Filter>源文件\Test</Filter>
-    </ClCompile>
+    <ClInclude Include="Grammar\grammar.h" />
+    <ClInclude Include="Lexical\lexical.h" />
+    <ClInclude Include="Intermediate_generation\midcode_g.h" />
+    <ClInclude Include="Semantic\semantic.h" />
+    <ClInclude Include="SNLC.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Lexical\lexical.h">
-      <Filter>源文件\Lexical</Filter>
-    </ClInclude>
-    <ClInclude Include="Semantic\semantic.h">
-      <Filter>源文件\Semantic</Filter>
-    </ClInclude>
-    <ClInclude Include="Grammar\grammar.h">
-      <Filter>源文件\Grammar</Filter>
-    </ClInclude>
-    <ClInclude Include="SNLC.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Intermediate_generation\midcode_g.h">
-      <Filter>源文件\Intermediate_generation</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Docs\snls.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
-    <Text Include="Docs\production.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
-    <Text Include="Docs\token.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
-    <Text Include="Docs\symbtable.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
-    <Text Include="Docs\treeDes.txt">
-      <Filter>源文件\docs</Filter>
-    </Text>
     <Text Include="Docs\snl2.txt" />
+    <Text Include="Docs\snls.txt" />
+    <Text Include="Docs\production.txt" />
+    <Text Include="Docs\symbtable.txt" />
+    <Text Include="Docs\token.txt" />
   </ItemGroup>
 </Project>
