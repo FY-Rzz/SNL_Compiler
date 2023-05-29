@@ -107,6 +107,9 @@
     <ClInclude Include="Intermediate_generation\midcode_g.h">
       <Filter>源文件\Intermediate_generation</Filter>
     </ClInclude>
+    <ClInclude Include="Intermediate_optimization\midcodeopt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Docs\snls.txt">
@@ -125,5 +128,6 @@
       <Filter>源文件\docs</Filter>
     </Text>
     <Text Include="Docs\snl2.txt" />
+    <Text Include="Docs\midcode.txt" />
   </ItemGroup>
 </Project>

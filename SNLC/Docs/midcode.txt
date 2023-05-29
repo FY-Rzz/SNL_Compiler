@@ -1,0 +1,28 @@
+0: PENTRY 1 13 1
+1: ADD x 1 temp11
+2: ASSIG temp11 x
+3: ADD y 1 temp12
+4: ASSIG temp12 y
+5: ENDPROC
+6: MENTRY 20 13
+7: ASSIG 10 v1
+8: ASSIG 26 v2
+9: ASSIG 1 a
+10: ADD a 1 temp14
+11: ASSIG temp14 b
+12: ASSIG c a
+13: ADD b 5 temp15
+14: ASSIG temp15 c
+15: VALACT a 7
+16: VARACT b 8
+17: CALL 1 9
+18: ADD 4 5 temp16
+19: MULT 3 temp16 temp17
+20: LT v2 temp17 temp18
+21: JUMP0 temp18 2
+22: ADD v2 1 temp19
+23: ASSIG temp19 v2
+24: JUMP 3
+25: LABEL 2
+26: WRITE o1
+27: LABEL 3

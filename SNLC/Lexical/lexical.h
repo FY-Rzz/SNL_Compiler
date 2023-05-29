@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 
-constexpr auto LEX_ERROR = "error.txt";
+constexpr auto LEX_ERROR = "./Docs/error.txt";
 using namespace std;
 
 // 
@@ -28,7 +28,7 @@ enum LexType
 // ±£Áô×Ö±í
 const string reserved_word[] = { "if","begin","intc","end"
 	,"type","var", "procedure","program","integer","char","array","record"
-	,"of","endwh","while","return","read","write","then"
+	,"of","endwh","while","return","read","write","then","fi"
 	,"else","do"
 };
 

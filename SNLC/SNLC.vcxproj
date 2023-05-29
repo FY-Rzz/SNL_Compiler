@@ -158,12 +158,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grammar\grammar.h" />
+    <ClInclude Include="Intermediate_optimization\midcodeopt.h" />
     <ClInclude Include="Lexical\lexical.h" />
     <ClInclude Include="Intermediate_generation\midcode_g.h" />
     <ClInclude Include="Semantic\semantic.h" />
     <ClInclude Include="SNLC.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Docs\midcode.txt" />
     <Text Include="Docs\snl2.txt" />
     <Text Include="Docs\snls.txt" />
     <Text Include="Docs\production.txt" />
