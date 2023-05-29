@@ -1,5 +1,7 @@
 #include "midcode_g.h"
-extern symbtable Scope[10000];
+ int tmp_num;
+ int label_num;
+ CodeFile* head, * tail;
 
 // 中间代码生成主函数
 CodeFile* GenMidCode(TreeNode* t) {
@@ -16,6 +18,7 @@ CodeFile* GenMidCode(TreeNode* t) {
 		tmp = tmp->sibling;
 
 	}
+
 	//生成入口代码
 	tmp = t->child[2];
 	ArgRecord* arg2 = ARGValue(initOff);
@@ -28,7 +31,7 @@ CodeFile* GenMidCode(TreeNode* t) {
 
 	//活动记录的大小？？？回填arg2
 	//arg2->value = tmp->table[0]->attrIR.More.ProcAttr.size;
-
+	PrintMidCode(head);
 	return head;
 }
 
@@ -44,7 +47,7 @@ void GenProcDec(TreeNode* t) {
 
 	//处理过程声明中的过程声明
 	TreeNode* tmp = t->child[1];
-	while (tmp->nodekind != ProcDecK) {
+	while (tmp && tmp->nodekind != ProcDecK) {
 		tmp = tmp->sibling;
 	}
 	if (tmp != NULL) tmp = tmp->child[0];
@@ -145,7 +148,7 @@ ArgRecord* GenExpr(TreeNode* t)
 	ArgRecord* arg = NULL;
 	if ((*t).kind.exp == IdEK)
 	{
-		arg = GenVar(t);
+		arg = GenVar(t->child[0]);
 	}
 	else if ((*t).kind.exp == ConstK)
 	{
@@ -205,6 +208,8 @@ ArgRecord* GenArray(ArgRecord* Vlarg, TreeNode* t, int low, int size)
 ArgRecord* GenVar(TreeNode* t)
 {
 	string id = t->name[0];
+
+
 	AccessKind acc = (AccessKind)t->table[0]->attrIR.More.VarAttr.access;
 	int lev = t->table[0]->attrIR.More.VarAttr.level;
 	int off = t->table[0]->attrIR.More.VarAttr.off;
@@ -254,6 +259,7 @@ void GenStatement(TreeNode* t)
 // 语句体中间代码生成函数
 void GenBody(TreeNode* t)
 {
+	TreeNode* tmp = t;
 	while (t)
 	{
 		GenStatement(t);
@@ -265,7 +271,7 @@ void GenBody(TreeNode* t)
 /*---------=======================-----------*/
 
 
-// 
+ 
 
 
 

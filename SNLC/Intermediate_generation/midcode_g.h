@@ -56,9 +56,9 @@ struct CodeFile {
 
 
 //-------------------------------全局变量声明--------------------
-int tmp_num;
-int label_num;
-CodeFile* head, * tail;
+extern int tmp_num;
+extern int label_num;
+extern CodeFile* head, * tail;
 
 //-------------------------------函数声明------------------------
 
