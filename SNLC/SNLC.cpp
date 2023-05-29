@@ -7,7 +7,7 @@
 // 设计条件编译标志，满足不同编译功能需求
 int main()
 {
-    getTokenList("./Docs/snls.txt", "./Docs/token.txt");
+    getTokenList("./Docs/snl2.txt", "./Docs/token.txt");
     TreeNode* root = DesParse();
     Analyze(root);
     outputTreeNode(root);

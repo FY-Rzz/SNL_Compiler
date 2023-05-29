@@ -164,6 +164,7 @@
     <ClInclude Include="SNLC.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Docs\snl2.txt" />
     <Text Include="Docs\snls.txt" />
     <Text Include="Docs\production.txt" />
     <Text Include="Docs\symbtable.txt" />

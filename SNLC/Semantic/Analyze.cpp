@@ -43,8 +43,11 @@ typeIR* nameType(TreeNode* t) {
 	int i = 0;
 	if (flagtree)i++;
 	bool flag = FindEntry(t->name[i], false, Entry);
-	if (!flag) cout << t->lineno << "自定义类型" + t->name[i] + "未声明" << endl;
-	else return (*Entry)->attrIR.idtype;
+	t->table.push_back(*Entry);
+	if (!flag) 
+		cout << t->lineno << "自定义类型" + t->name[i] + "未声明" << endl;
+	else 
+		return (*Entry)->attrIR.idtype;
 
 	return nullptr;
 }
@@ -85,11 +88,12 @@ typeIR* recordType(TreeNode* t) {
 		for (int i = 0; i < nt->name.size(); i++) {
 			if (newbody != nullptr) {
 				fieldChain** Entry = new fieldChain*;
+				(*Entry) = nullptr;
 				bool flag = FindField(nt->name[i], newbody, Entry);
 				if (flag)
 					cout << t->lineno << "record重命名" << endl;
 			}
-			fieldChain* newt = new fieldChain;;
+			fieldChain* newt = new fieldChain;
 			if (newbody == nullptr)
 				newbody = newt;
 			else {
@@ -163,7 +167,6 @@ void VarDecList(TreeNode* t) {
 	int i = 0;
 	if (t->kind.dec == IdK) i++;
 	for (; i < t->name.size(); i++) {
-
 		bool flag = FindEntry(t->name[i], false, Entry);
 		if (flag)
 			cout << t->lineno << "变量标识符" + t->name[i] + "重复声明" << endl;
@@ -193,6 +196,7 @@ ParamTable* ParaDecList(TreeNode* t) {
 		symbtable** Entry = new symbtable*;
 		*Entry = nullptr;
 		bool flag = FindEntry(t->name[i], false, Entry);
+		//t->table.push_back(*Entry);
 		if (flag)
 			cout << t->lineno << "形参标识符" + t->name[i] + "重复声明" << endl;
 		else {
@@ -233,13 +237,13 @@ void ProcDecPart(TreeNode* t) {
 	*Entry = nullptr;
 	Enter(t->name[0], procir, Entry);
 	t->table.push_back(*Entry);
-	//下面写处理过程
+
 	CreateTable();
 	//处理形参，并将形参表给函数的符号表内的param项
 	(*Entry)->attrIR.More.ProcAttr.param = ParaDecList(t->child[0]);
 
 	bianli(t->child[1]);                       //声明                
-	Body(t->child[2]->child[0]);                                  //语句
+	Body(t->child[2]->child[0]);               //语句
 	DestroyTable();
 	return;
 }
@@ -250,6 +254,7 @@ typeIR* Expr(TreeNode* t, AccessKind* Ekind) {
 		symbtable** Entry = new symbtable*;
 		*Entry = nullptr;
 		bool flag = FindEntry(t->name[0], true, Entry);
+		t->table.push_back(*Entry);
 		if (!flag)
 			cout << t->lineno << "表达式语句中" + t->name[0] + "未声明" << endl;
 		else {
@@ -273,7 +278,8 @@ typeIR* Expr(TreeNode* t, AccessKind* Ekind) {
 					cout << t->lineno << "record中没有此元素" << endl;
 				}
 			}
-			else return (*Entry)->attrIR.idtype;
+			else 
+				return (*Entry)->attrIR.idtype;
 		}
 	}
 	else if (t->kind.exp == ConstK) {
@@ -301,12 +307,15 @@ void assignstatement(TreeNode* t) {
 	else {
 		symbtable** Entry = new symbtable*;
 		bool flag = FindEntry(t->child[0]->name[0], true, Entry);
+		//t->table.push_back(*Entry);
 		if (!flag)
 			cout << t->lineno << "标识符" + t->child[0]->name[0] + "未声明" << endl;
 		else {
 			TreeNode* nowt = t->child[0];
 			symbtable* findt = *Entry;
-			typeIR* kindleft = findt->attrIR.idtype;
+			//typeIR* kindleft = findt->attrIR.idtype;
+			AccessKind* Ekind0 = new AccessKind;
+			typeIR* kindleft = Expr(t->child[0], Ekind0);
 			if (nowt->child[0] != nullptr) {
 				if (findt->attrIR.idtype->kind == arrayTy) {
 					AccessKind* Ekind = new AccessKind;
@@ -340,6 +349,7 @@ void callstatement(TreeNode* t) {
 	symbtable** Entry = new symbtable*;
 	*Entry = nullptr;
 	bool flag = FindEntry(t->child[0]->name[0], true, Entry);
+	t->table.push_back(*Entry);
 	if (!flag)
 		cout << t->lineno << "函数" + t->child[0]->name[0] + "未声明" << endl;
 	else {
@@ -414,6 +424,7 @@ void readstatement(TreeNode* t) {
 	*Entry = nullptr;
 	//for (int i = 0; i < t->name.size(); i++) {}
 	bool flag = FindEntry(t->name[0], true, Entry);
+	t->table.push_back(*Entry);
 	if (!flag)
 		cout << t->lineno << "读语句标识符" + t->name[0] + "未声明" << endl;
 	return;
