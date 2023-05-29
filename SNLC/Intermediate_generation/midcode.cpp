@@ -26,8 +26,9 @@ CodeFile* GenMidCode(TreeNode* t) {
 	CodeFile* c = GenCode(MENTRY, NULL, arg2, arg3);
 
 	tmp_num = 0;//活动记录第一个临时变量的偏移???
-
-	GenBody(tmp);
+	PrintMidCode(head);
+	cout << endl << endl;
+	GenBody(tmp->child[0]);
 
 	//活动记录的大小？？？回填arg2
 	//arg2->value = tmp->table[0]->attrIR.More.ProcAttr.size;
@@ -60,7 +61,7 @@ void GenProcDec(TreeNode* t) {
 
 	//初始化此过程临时变量的开始标号为过程活动记录中第一个临时变量的偏移
 
-	GenBody(t->child[2]);
+	GenBody(t->child[2]->child[0]);
 	//得到过程活动记录的大小，回填入过程入口中间代码中
 
 	CodeFile* b = GenCode(ENDPROC, NULL, NULL, NULL);
@@ -114,9 +115,10 @@ void GenReadS(TreeNode* t)
 void GenCallS(TreeNode* t)
 {
 	//获得入口地址，??
-	int EntryAddr = t->table[0]->attrIR.More.ProcAttr.code;
+	int EntryAddr = t->child[0]->table[0]->attrIR.More.ProcAttr.code;
+	//int EntryAddr = 111;
 
-	ParamTable* p = t->table[0]->attrIR.More.ProcAttr.param;
+	ParamTable* p = t->child[0]->table[0]->attrIR.More.ProcAttr.param;
 
 	TreeNode* tmp = t->child[1];
 	while (tmp != NULL) {
@@ -148,7 +150,7 @@ ArgRecord* GenExpr(TreeNode* t)
 	ArgRecord* arg = NULL;
 	if ((*t).kind.exp == IdEK)
 	{
-		arg = GenVar(t->child[0]);
+		arg = GenVar(t);
 	}
 	else if ((*t).kind.exp == ConstK)
 	{
@@ -260,10 +262,10 @@ void GenStatement(TreeNode* t)
 void GenBody(TreeNode* t)
 {
 	TreeNode* tmp = t;
-	while (t)
+	while (tmp)
 	{
-		GenStatement(t);
-		t = (*t).sibling;
+		GenStatement(tmp);
+		tmp = (*tmp).sibling;
 	}
 }
 
