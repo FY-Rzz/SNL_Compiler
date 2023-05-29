@@ -349,7 +349,7 @@ void callstatement(TreeNode* t) {
 	symbtable** Entry = new symbtable*;
 	*Entry = nullptr;
 	bool flag = FindEntry(t->child[0]->name[0], true, Entry);
-	t->table.push_back(*Entry);
+	t->child[0]->table.push_back(*Entry);
 	if (!flag)
 		cout << t->lineno << "º¯Êı" + t->child[0]->name[0] + "Î´ÉùÃ÷" << endl;
 	else {
