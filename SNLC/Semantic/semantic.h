@@ -64,7 +64,7 @@ struct ParamTable {
 struct fieldChain
 {
 	string idname; //记录域中的标识符；
-	typeIR* unitType; //指向域类型的内部表示；                                                               //这里有错误
+	typeIR* unitType; //指向域类型的内部表示;                                                   
 	int offset; //表示当前标识符在记录中的偏移；
 	fieldChain* next; //指向下一个域。
 };
@@ -90,11 +90,6 @@ const int initOff = 7;
 extern int level;
 extern int off;
 extern symbtable Scope[10000];//符号表
-//symbtable DestroyScope[10000];//撤销符号表
-//int destroylevel = 0;
-//int level = 0;
-//bool flagtree = false;//用于判断自定义类型是类型声明还是变量声明，变量声明为false
-//symbtable* table = nullptr;
 
 //-------------------------------函数声明--------------------------------
 

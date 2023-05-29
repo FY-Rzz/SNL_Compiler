@@ -32,6 +32,7 @@ void DestroyTable() {
 
 bool Enter(string Id, AttributeIR* AttribP, symbtable** Entry) {
 	bool present = FindEntry(Id, false, Entry);
+
 	if (present == true) {
 		cout << "标识符重复声明" << endl;
 	}
@@ -63,7 +64,9 @@ bool FindEntry(string id, bool flag, symbtable** Entry) {
 			if (SearchoneTable(id, i, Entry))
 				return true;
 	}
-	else return SearchoneTable(id, level, Entry);
+	else {
+		return SearchoneTable(id, level, Entry);
+	}
 	return false;
 }
 
