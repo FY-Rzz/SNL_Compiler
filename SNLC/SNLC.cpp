@@ -24,10 +24,12 @@ int main()
         getTokenList(path, "./Docs/token.txt");
         cout << "进入语法分析..." << endl;
         TreeNode* root = DesParse();
-        //outputTreeNode(root);
+        cout << "语法分析后语法树节点输出：" << endl;
+        outputTreeNode(root);
         cout << "进入语义分析..." << endl;
         Analyze(root);
-        //outputTreeNode(root);
+        cout << "语义分析后语法树节点输出：" << endl;
+        outputTreeNode(root);
         cout << "进入中间代码生成..." << endl;
         CodeFile* c = GenMidCode(root);
         cout << "进入常量表达式优化..." << endl;
@@ -52,7 +54,7 @@ void outputTreeNode(TreeNode* root) {
     switch (root->nodekind)
     {
     case 0:
-        cout << "ProK" << endl;
+        cout << "ProK" << endl; break;
     case 1:
         cout << "PheadK" << endl;
         break;
@@ -73,7 +75,6 @@ void outputTreeNode(TreeNode* root) {
     default:
         break;
     }
-    cout << endl;
     
     //std::cout << "Kind: " << root->kind << std::endl;
     std::cout << "Id Num: " << root->idnum << std::endl;

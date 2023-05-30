@@ -3,18 +3,15 @@
 typeIR* intPtr, * charPtr, * boolPtr;
 bool flagtree = false;
 
-
+// 语义分析主函数
 void Analyze(TreeNode* root)
 {
 	cout << "进入语义分析..." << endl;
 	CreateTable();
 	initialize();
-
 	// 循环处理主程序声明
-	
 	// 循环处理主程序体
 	bianli(root);
-	// 撤销符号表
 	// 打印符号表
 	printSymbTable("./Docs/symbtable.txt");
 	cout << "语义分析完成" << endl;

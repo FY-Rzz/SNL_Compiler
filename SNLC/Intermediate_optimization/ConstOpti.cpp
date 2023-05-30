@@ -4,7 +4,7 @@ vector<vector<CodeFile>> BaseBlock;
 ConstDefT * Chead = nullptr, * Ctail = nullptr;
 
 
-
+// 常量优化主函数
 CodeFile* ConstOptimize() {
     
 
@@ -39,6 +39,7 @@ CodeFile* ConstOptimize() {
                 tmpCode = tmpCode->next;
             }
             tmpCode->next = nextHead;
+            nextHead->former = tmpCode;
         }
         
     }
@@ -46,6 +47,7 @@ CodeFile* ConstOptimize() {
     return firstCode;
 }
 
+// 优化基本块
 CodeFile* OptiBlock(int i)
 {
     // 构建基本块
