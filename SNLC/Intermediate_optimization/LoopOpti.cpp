@@ -19,7 +19,7 @@ CodeFile* LoopOpti()
 			CurrentCode->onecode->codekind == SUB || CurrentCode->onecode->codekind == MULT ||
 			CurrentCode->onecode->codekind == DIV || CurrentCode->onecode->codekind == EQC || CurrentCode->onecode->codekind == LTC)
 			AddTable(CurrentCode->onecode->arg3);
-		else if (CurrentCode->onecode->codekind == ASSIG)  AddTable(CurrentCode->onecode->arg2);
+		else if (CurrentCode->onecode->codekind == ASSIG)  AddTable(CurrentCode->onecode->arg1);
 		else if (CurrentCode->onecode->codekind == WHILESTART) whileEntry(CurrentCode);
 		else if (CurrentCode->onecode->codekind == ENDWHILE)  whileEnd(CurrentCode);
 		else if (CurrentCode->onecode->codekind == CALL) call(CurrentCode);
@@ -68,6 +68,7 @@ void whileEnd(CodeFile* code)
 
 //变量定值表查找函数
 int SearchTable(ArgRecord* arg, int head) {
+	if (arg->form == LabelForm || arg->form == ValueForm) return -1;
 	int _level = arg->Addr.dataLevel;
 	int _off = arg->Addr.dataOff;
 	for (int i = head; i < setNum; i++) {
@@ -104,7 +105,7 @@ void LoopOutSide(CodeFile* entry)
 	int level = 0;
 	CodeFile* f = entry;
 	f = f->next;
-	while (f->onecode->codekind != ENDWHILE && level != 0) // ? ? ? ?
+	while (f->onecode->codekind != ENDWHILE) // ? ? ? ?
 	{
 		if (f->onecode->codekind == WHILESTART) level++;
 		else if (f->onecode->codekind == ENDWHILE)  level--;
@@ -112,11 +113,23 @@ void LoopOutSide(CodeFile* entry)
 			f->onecode->codekind == SUB || f->onecode->codekind == MULT)
 		{
 			if (SearchTable(f->onecode->arg1, LoopInfoStack[IStop]->varDef) == -1 && SearchTable(f->onecode->arg2, LoopInfoStack[IStop]->varDef) == -1) // ? ? ?
-				LoopOutSide(f);
+			{
+				//LoopOutSide(f);
+				f->former->next = f->next;
+				f->next->former = f->former;
+				CodeFile* cf = entry->former;
+				
+				cf->next = f;
+				entry->former = f;
+				f->former = cf;
+				f->next = entry;
+			}
 			else
 			{
-				if (SearchTable(f->onecode->arg1, LoopInfoStack[IStop]->varDef) == -1) AddTable(f->onecode->arg1);
-				if (SearchTable(f->onecode->arg2, LoopInfoStack[IStop]->varDef) == -1) AddTable(f->onecode->arg2);
+				if (SearchTable(f->onecode->arg1, LoopInfoStack[IStop]->varDef) == -1) 
+					AddTable(f->onecode->arg1);
+				if (SearchTable(f->onecode->arg2, LoopInfoStack[IStop]->varDef) == -1) 
+					AddTable(f->onecode->arg2);
 			}
 		}
 		f = f->next;

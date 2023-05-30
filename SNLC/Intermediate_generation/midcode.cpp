@@ -8,7 +8,7 @@ CodeFile* GenMidCode(TreeNode* t) {
 	tmp_num = 1;
 	TreeNode* tmp = t;
 	tmp = t->child[1];
-	while (tmp->nodekind != ProcDecK) {
+	while (tmp && tmp->nodekind != ProcDecK) {
 		tmp = tmp->sibling;
 	}
 	//if (tmp != NULL) tmp = tmp->child[0];
@@ -123,7 +123,9 @@ void GenCallS(TreeNode* t)
 	while (tmp != NULL) {
 		ArgRecord* Earg = GenExpr(tmp);
 		ArgRecord* Rarg;//ÐÎ²ÎµÄÆ«ÒÆ
-		if (p->entry->attrIR.More.VarAttr.access==(AccessKind)dir) {
+		//tmp->attr.procAttr.paramt=Valparamtype,
+		//	Varparamtype
+		if (tmp->attr.procAttr.paramt = Valparamtype) {
 			Rarg = ARGValue(p->entry->attrIR.More.VarAttr.off);
 			GenCode(VALACT, Earg, Rarg, NULL);
 
