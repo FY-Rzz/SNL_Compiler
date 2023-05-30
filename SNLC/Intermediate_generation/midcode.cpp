@@ -147,46 +147,50 @@ void GenCallS(TreeNode* t)
 ArgRecord* GenExpr(TreeNode* t)
 {
 	ArgRecord* arg = NULL;
-	if ((*t).kind.exp == IdEK)
-	{
-		arg = GenVar(t);
-	}
-	else if ((*t).kind.exp == ConstK)
-	{
-		arg = ARGValue((*t).attr.expAttr.val);
-	}
-	else if ((*t).kind.exp == OpK)
-	{
-		ArgRecord* Larg = GenExpr((*t).child[0]);
-		CodeKind op;
-		LexType opp = (*t).attr.expAttr.op;   //ADD, SUB, MULT, DIV,EQC, LTC, 
-		if (opp == PLUS) op = ADD;
-		else if(opp == MINUS) op = SUB;
-		else if (opp == TIMES) op = MULT;
-		else if (opp == OVER) op = DIV;
-		else if (opp == EQ) op = EQC;
-		else if (opp == LT) op = LTC;
-		ArgRecord* Rarg = GenExpr((*t).child[1]);
-		ArgRecord* temp1 = NewTemp(dir);
-		GenCode(op, Larg, Rarg, temp1);
-		arg = temp1;
+	if (!t) return NULL;
+	if ((*t).nodekind == ExpK) {
+		if ((*t).kind.exp == IdEK)
+		{
+			arg = GenVar(t);
+		}
+		else if ((*t).kind.exp == ConstK)
+		{
+			arg = ARGValue((*t).attr.expAttr.val);
+		}
+		else if ((*t).kind.exp == OpK)
+		{
+			ArgRecord* Larg = GenExpr((*t).child[0]);
+			CodeKind op;
+			LexType opp = (*t).attr.expAttr.op;   //ADD, SUB, MULT, DIV,EQC, LTC, 
+			if (opp == PLUS) op = ADD;
+			else if (opp == MINUS) op = SUB;
+			else if (opp == TIMES) op = MULT;
+			else if (opp == OVER) op = DIV;
+			else if (opp == EQ) op = EQC;
+			else if (opp == LT) op = LTC;
+			ArgRecord* Rarg = GenExpr((*t).child[1]);
+			ArgRecord* temp1 = NewTemp(dir);
+			GenCode(op, Larg, Rarg, temp1);
+			arg = temp1;
+		}
 	}
 	return arg;
 }
 
-// 域成员变量的中间代码生成(有问题，偏移)
+// 域成员变量的中间代码生成
 ArgRecord* GenField(ArgRecord* V1arg, TreeNode* t, fieldChain* head)
 {
-	ArgRecord* offArg = ARGAddr(head->idname, (*t).table[0]->attrIR.More.VarAttr.level, head->offset, (*t).table[0]->attrIR.More.VarAttr.access);
+	ArgRecord* offArg = ARGAddr(head->idname, 1, 1, dir);
 	ArgRecord* temp1 = NewTemp(dir);
 	GenCode(AADD, V1arg, offArg, temp1);
 	ArgRecord* FieldV = NULL;
+	ArgRecord* Field = NULL;
 	if (head->unitType->kind == arrayTy)
 	{
-		GenArray(temp1, t, t->attr.arrayAttr.low, t->attr.arrayAttr.up - t->attr.arrayAttr.low);
+		GenArray(temp1, t, t->attr.arrayAttr.low, t->attr.arrayAttr.up - t->attr.arrayAttr.low + 1);
 	}
 	else FieldV = temp1;
-	return FieldV;
+	return Field;
 
 }
 

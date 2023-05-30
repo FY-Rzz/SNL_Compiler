@@ -7,18 +7,35 @@
 // 设计条件编译标志，满足不同编译功能需求
 int main()
 {
-    getTokenList("./Docs/snl3.txt", "./Docs/token.txt");
-    TreeNode* root = DesParse();
-    Analyze(root);
-    outputTreeNode(root);
-    cout << "语法树输出完成" << endl;
-    CodeFile* c = GenMidCode(root);
-    cout << "中间代码生成完成。。" << endl;
-    CodeFile* opt = ConstOptimize();
-    cout << "优化" << endl;
-    PrintMidCode(opt);
+    cout << "*************************************************************" << endl;
+    cout << "*                                                           *" << endl;
+    cout << "*                 欢迎使用SNL编译程序                       *" << endl; //输出中文信息
+    cout << "*                                                           *" << endl; 
+    cout << "*************************************************************" << endl; 
+    while (true) {
+        string inputSNL;
+        cout << "请输入待编译的SNL源程序名称（退出请输入exit）" << endl;
+        cin >> inputSNL;
+        if (inputSNL._Equal("exit")) {
+            break;
+        }
+        inputSNL = "./Docs/" + inputSNL;
+        cout << "进入词法分析..." << endl;
+        getTokenList(inputSNL, "./Docs/token.txt");
+        cout << "进入语法分析..." << endl;
+        TreeNode* root = DesParse();
+        cout << "进入语义分析..." << endl;
+        Analyze(root);
+        //outputTreeNode(root);
+        cout << "进入中间代码生成..." << endl;
+        CodeFile* c = GenMidCode(root);
+        cout << "进入常量表达式优化..." << endl;
+        CodeFile* opt = ConstOptimize();
+        PrintMidCode(opt);
 
-    system("PAUSE");
+        system("PAUSE");
+    }
+    
 }
 
 void outputTreeNode(TreeNode* root) {

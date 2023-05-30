@@ -62,7 +62,7 @@ CodeFile* OptiBlock(int i)
         btmp->onecode = BaseBlock[i][j].onecode;
         btmp->next = nullptr;
     }
-    PrintMidCode(bhead->next);
+    //PrintMidCode(bhead->next);
     // ±éÀú´¦Àí
     bptr = bhead->next;
     while (bptr != nullptr) {

@@ -11,22 +11,22 @@ Token token;		//存储当前Token
 ifstream in("./Docs/token.txt");
 /*******************函数声明************************/
 TreeNode* DesParse() {
-	cout << "进入语法分析..." << endl;
+	//cout << "进入语法分析..." << endl;
 	//读入token
 	ReadToken();
-	cout << "token读取完毕.." << endl;
+	//cout << "token读取完毕.." << endl;
 	TreeNode* t = Program();
 	if (in.eof()) {
-		cout << "if1" << endl;
+		//cout << "if1" << endl;
 		Input(t, "./Docs/treeDes.txt");
 	}
 	else {
-		cout << "if2" << endl;
+		//cout << "if2" << endl;
 		string a = "文件提前结束";
 		InputError(a, "./Docs/error.txt");
 		exit(0);
 	}
-	cout << "语法分析完成..." << endl;
+	//cout << "语法分析完成..." << endl;
 	return t;
 }
 TreeNode* Program() {
@@ -34,13 +34,13 @@ TreeNode* Program() {
 	TreeNode* root = new TreeNode();
 	(*root).nodekind = ProK;
 	(*root).lineno = token.lineShow ;
-	cout << "1..." << endl;
+
 	TreeNode* t = ProgramHead();
-	cout << "2..." << endl;
+
 	TreeNode* q = DeclarePart();
-	cout << "3..." << endl;
+
 	TreeNode* s = ProgramBody();
-	cout << "4..." << endl;
+
 	if (t == NULL) {
 		string a = "没有程序头";
 		InputError(a, "./Docs/error.txt");
@@ -75,15 +75,15 @@ TreeNode* ProgramHead() {
 	TreeNode* t = new TreeNode();
 	(*t).nodekind = PheadK;
 	(*t).lineno = token.lineShow ;
-	cout << "1.1" << endl;
+
 	Match(PROGRAM);
-	cout << "1.2" << endl;
+
 	if (token.lex == ID) {
 		(*t).idnum++;
 		(*t).name.push_back(token.sem);
 	}
 	Match(ID);
-	cout << "1.3" << endl;
+	//cout << "1.3" << endl;
 	return t;
 }
 TreeNode* DeclarePart() {
@@ -913,7 +913,7 @@ void FieldVarMore(TreeNode* t) {
 	}
 }
 void Match(LexType expected) {
-	cout << "token.lex:" << token.lex << endl;
+	//cout << "token.lex:" << token.lex << endl;
 	if (token.lex == expected) {
 		ReadToken();
 	}
