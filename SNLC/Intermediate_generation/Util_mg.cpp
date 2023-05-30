@@ -115,6 +115,12 @@ void PrintMidCode(CodeFile* firstCode) {
 			case 19:
 				cout << "MENTRY";
 				break;
+			case 20:
+				cout << "WHILESTART";
+				break;
+			case 21:
+				cout << "ENDWHILE";
+				break;
 		}
 		//cout << firstCode->onecode->codekind;
 		cout << ", ";

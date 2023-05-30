@@ -8,7 +8,7 @@ CodeFile* GenMidCode(TreeNode* t) {
 	tmp_num = 1;
 	TreeNode* tmp = t;
 	tmp = t->child[1];
-	while (tmp->nodekind != ProcDecK) {
+	while (tmp && tmp->nodekind != ProcDecK) {
 		tmp = tmp->sibling;
 	}
 	//if (tmp != NULL) tmp = tmp->child[0];
@@ -23,7 +23,7 @@ CodeFile* GenMidCode(TreeNode* t) {
 	//生成入口代码
 	tmp = t->child[2];
 	ArgRecord* arg2 = ARGValue(initOff);
-	ArgRecord* arg3 = ARGValue(34);//偏移量
+	ArgRecord* arg3 = ARGValue(12);//偏移量
 	CodeFile* c = GenCode(MENTRY, NULL, arg2, arg3);
 
 	tmp_num ++;//活动记录第一个临时变量的偏移???
@@ -71,8 +71,8 @@ void GenWhileS(TreeNode* t)
 {
 	ArgRecord* InLarg = ARGLabel(NewLabel());
 	ArgRecord* OutLarg = ARGLabel(NewLabel());
-	ArgRecord* Earg = GenExpr((*t).child[0]);
 	GenCode(WHILESTART, InLarg, NULL, NULL);
+	ArgRecord* Earg = GenExpr((*t).child[0]);
 	GenCode(JUMP0, Earg, OutLarg, NULL);
 	GenBody((*t).child[1]);
 	GenCode(JUMP, InLarg, NULL, NULL);
@@ -123,7 +123,9 @@ void GenCallS(TreeNode* t)
 	while (tmp != NULL) {
 		ArgRecord* Earg = GenExpr(tmp);
 		ArgRecord* Rarg;//形参的偏移
-		if (p->entry->attrIR.More.VarAttr.access==(AccessKind)dir) {
+		//tmp->attr.procAttr.paramt=Valparamtype,
+		//	Varparamtype
+		if (tmp->attr.procAttr.paramt == Valparamtype) {
 			Rarg = ARGValue(p->entry->attrIR.More.VarAttr.off);
 			GenCode(VALACT, Earg, Rarg, NULL);
 
