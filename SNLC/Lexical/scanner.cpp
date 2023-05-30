@@ -321,11 +321,11 @@ void getTokenList(string inputFile, string outputFile)
 							i++;
 						}
 					}
-					if (query[i] >= 'a' && query[i] <= 'z') {
+					if (isalpha(query[i])) {
 						if (sta == START) {
 							sta = INID;
 						}
-						while ((query[i] >= 'a' && query[i] <= 'z') || (query[i] >= '0' && query[i] <= '9')) {
+						while ((isalpha(query[i])) || (query[i] >= '0' && query[i] <= '9')) {
 							imbuffer = imbuffer + query[i];
 							i++;
 							if (i == longquery)
@@ -358,7 +358,7 @@ void getTokenList(string inputFile, string outputFile)
 							if (i == longquery)
 								break;
 						}
-						while (query[i] >= 'a' && query[i] <= 'z') {
+						while (isalpha(query[i])) {
 							sta = START;
 							i++;
 							if (i == longquery)
@@ -417,6 +417,11 @@ void getTokenList(string inputFile, string outputFile)
 							sta = START;
 							break;
 						}
+						else {
+							string a = to_string(linenum) + "行有错误";
+							InputError(a, LEX_ERROR);
+							exit(0);
+						}
 
 					}
 					if (query[i] == ',') {
@@ -433,7 +438,7 @@ void getTokenList(string inputFile, string outputFile)
 							while (query[i] == ' ') {
 								i++;
 							}
-							if (i < longquery && ((query[i] >= 'a' && query[i] <= 'z') || (query[i] >= '0' && query[i] <= '9')));
+							if (i < longquery && ((isalpha(query[i])) || (query[i] >= '0' && query[i] <= '9')));
 							else {
 
 								string a = to_string(linenum) + "行有错误";

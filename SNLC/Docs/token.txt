@@ -44,7 +44,6 @@
 9 0 y
 9 5 SingleSeparator
 9 3 1
-9 18 SingleSeparator
 10 4 ReseverWord
 11 2 ReseverWord
 12 0 v1
@@ -98,11 +97,11 @@
 19 0 v2
 19 5 SingleSeparator
 19 3 1
-20 36 ReseverWord
-21 32 ReseverWord
-21 26 SingleSeparator
-21 0 o1
-21 27 SingleSeparator
-22 35 ReseverWord
-23 4 ReseverWord
-23 13 Finish
+19 36 ReseverWord
+19 32 ReseverWord
+19 26 SingleSeparator
+19 0 o1
+19 27 SingleSeparator
+19 35 ReseverWord
+20 4 ReseverWord
+20 13 Finish

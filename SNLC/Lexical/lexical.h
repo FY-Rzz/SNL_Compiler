@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 
-constexpr auto LEX_ERROR = "error.txt";
+constexpr auto LEX_ERROR = "./Docs/error.txt";
 using namespace std;
 
 // 
@@ -28,7 +28,7 @@ enum LexType
 // 保留字表
 const string reserved_word[] = { "if","begin","intc","end"
 	,"type","var", "procedure","program","integer","char","array","record"
-	,"of","endwh","while","return","read","write","then"
+	,"of","endwh","while","return","read","write","then","fi"
 	,"else","do"
 };
 
@@ -58,7 +58,7 @@ void ungetNextChar();
 // -> int: 返回保留字词法对应的下标,若不是保留字则返回-1
 int reservedLookup(string s);
 
-// 取得所有单词
+// 取得所有单词token
 void getTokenList(string inputFile, string outputFile);
 
 // 测试程序
