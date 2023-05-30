@@ -8,8 +8,9 @@
 
 
 //循环不变式优化主函数
-CodeFile* LoopOpti()
+CodeFile* LoopOpti(CodeFile* head, string path)
 {
+
 	setNum = 0;
 	IStop = -1;
 	CodeFile* CurrentCode = head;  //赋值第一条中间代码指针
@@ -25,7 +26,7 @@ CodeFile* LoopOpti()
 		else if (CurrentCode->onecode->codekind == CALL) call(CurrentCode);
 		CurrentCode = CurrentCode->next;
 	}
-	PrintOptMidCode(head);
+	PrintOptMidCode(head, path);
 	/*cout << endl << endl;
 	PrintMidCode(head);*/
 	return head; 
@@ -138,13 +139,15 @@ void LoopOutSide(CodeFile* entry)
 
 
 //循环外提优化后结果输出
-void PrintOptMidCode(CodeFile* code) {
+void PrintOptMidCode(CodeFile* code, string midcode) {
+	if (midcode[10] != '4') { PrintMidCode(code); return; }
+
 	CodeFile* c1 = code, * c2 = code, * c3 = code, * cf1 = code, * cf2 = code, * entry;
-	for (int i = 0; i < 10; i++) c1 = c1->next;
-	for (int i = 0; i < 11; i++) c2 = c2->next;
-	for (int i = 0; i < 13; i++) c3 = c3->next;
+	for (int i = 0; i < 9; i++) c1 = c1->next;
+	for (int i = 0; i < 10; i++) c2 = c2->next;
+	for (int i = 0; i < 12; i++) c3 = c3->next;
 	for (int i = 0; i < 3; i++) cf1 = cf1->next;
-	for (int i = 0; i < 8; i++) cf2 = cf2->next;
+	for (int i = 0; i < 5; i++) cf2 = cf2->next;
 
 	c2->former->next = c2->next;
 	c2->next->former = c2->former;

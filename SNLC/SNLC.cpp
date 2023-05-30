@@ -13,25 +13,28 @@ int main()
     cout << "*                                                           *" << endl; 
     cout << "*************************************************************" << endl; 
     while (true) {
-        string inputSNL;
+        string path;
         cout << "请输入待编译的SNL源程序名称（退出请输入exit）" << endl;
-        cin >> inputSNL;
-        if (inputSNL._Equal("exit")) {
+        cin >> path;
+        if (path._Equal("exit")) {
             break;
         }
-        inputSNL = "./Docs/" + inputSNL;
+        path = "./Docs/" + path;
         cout << "进入词法分析..." << endl;
-        getTokenList(inputSNL, "./Docs/token.txt");
+        getTokenList(path, "./Docs/token.txt");
         cout << "进入语法分析..." << endl;
         TreeNode* root = DesParse();
+        //outputTreeNode(root);
         cout << "进入语义分析..." << endl;
         Analyze(root);
         //outputTreeNode(root);
         cout << "进入中间代码生成..." << endl;
         CodeFile* c = GenMidCode(root);
         cout << "进入常量表达式优化..." << endl;
-        CodeFile* opt = ConstOptimize();
-        PrintMidCode(opt);
+        CodeFile* optCon = ConstOptimize();
+        PrintMidCode(optCon);
+        cout << "进入循环不变式优化..." << endl;
+        CodeFile* optLoop = LoopOpti(optCon, path);
 
         system("PAUSE");
     }
@@ -45,7 +48,32 @@ void outputTreeNode(TreeNode* root) {
 
      //输出当前节点的属性
     std::cout << "Line: " << root->lineno << std::endl;
-    std::cout << "Node Kind: " << root->nodekind << std::endl;
+    std::cout << "Node Kind: " ;
+    switch (root->nodekind)
+    {
+    case 0:
+        cout << "ProK" << endl;
+    case 1:
+        cout << "PheadK" << endl;
+        break;
+    case 2:
+        cout << "TypeK" << endl; break;
+    case 3:
+        cout << "VarK" << endl; break;
+    case 4:
+        cout << "ProDecK" << endl; break;
+    case 5:
+        cout << "StmLK" << endl; break;
+    case 6:
+        cout << "DecK" << endl; break;
+    case 7:
+        cout << "StmtK" << endl; break;
+    case 8:
+        cout << "ExpK" << endl; break;
+    default:
+        break;
+    }
+    cout << endl;
     
     //std::cout << "Kind: " << root->kind << std::endl;
     std::cout << "Id Num: " << root->idnum << std::endl;

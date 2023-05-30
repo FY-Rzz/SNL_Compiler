@@ -19,7 +19,7 @@ extern int IStop;
 
 
 //循环不变式优化主函数
-CodeFile* LoopOpti();
+CodeFile* LoopOpti(CodeFile* head, string path);
 
 //循环入口的处理函数
 void whileEntry(CodeFile* code);
@@ -43,4 +43,4 @@ void AddTable(ArgRecord* arg);
 void LoopOutSide(CodeFile* entry);
 
 //循环外提优化后结果输出
-void PrintOptMidCode(CodeFile* code);
+void PrintOptMidCode(CodeFile* code,string midcode);
