@@ -7,17 +7,17 @@
 // 设计条件编译标志，满足不同编译功能需求
 int main()
 {
-    getTokenList("./Docs/snl3.txt", "./Docs/token.txt");
+    getTokenList("./Docs/snl4.txt", "./Docs/token.txt");
     TreeNode* root = DesParse();
     Analyze(root);
     outputTreeNode(root);
     cout << "语法树输出完成" << endl;
     CodeFile* c = GenMidCode(root);
     cout << "中间代码生成完成。。" << endl;
-    CodeFile* opt = ConstOptimize();
-    cout << "优化" << endl;
-    PrintMidCode(opt);
-
+    //CodeFile* opt = ConstOptimize();
+    //cout << "优化" << endl;
+    //PrintMidCode(opt);
+    //LoopOpti();
     system("PAUSE");
 }
 

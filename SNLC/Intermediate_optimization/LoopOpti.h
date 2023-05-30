@@ -41,3 +41,6 @@ void AddTable(ArgRecord* arg);
 
 //循环外提处理函数
 void LoopOutSide(CodeFile* entry);
+
+//循环外提优化后结果输出
+void PrintOptMidCode(CodeFile* code);

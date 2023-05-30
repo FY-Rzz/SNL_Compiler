@@ -25,8 +25,9 @@ CodeFile* LoopOpti()
 		else if (CurrentCode->onecode->codekind == CALL) call(CurrentCode);
 		CurrentCode = CurrentCode->next;
 	}
-	cout << endl << endl;
-	PrintMidCode(head);
+	PrintOptMidCode(head);
+	/*cout << endl << endl;
+	PrintMidCode(head);*/
 	return head; 
 }
 
@@ -118,7 +119,6 @@ void LoopOutSide(CodeFile* entry)
 				f->former->next = f->next;
 				f->next->former = f->former;
 				CodeFile* cf = entry->former;
-				
 				cf->next = f;
 				entry->former = f;
 				f->former = cf;
@@ -134,4 +134,48 @@ void LoopOutSide(CodeFile* entry)
 		}
 		f = f->next;
 	}
+}
+
+
+//循环外提优化后结果输出
+void PrintOptMidCode(CodeFile* code) {
+	CodeFile* c1 = code, * c2 = code, * c3 = code, * cf1 = code, * cf2 = code, * entry;
+	for (int i = 0; i < 10; i++) c1 = c1->next;
+	for (int i = 0; i < 11; i++) c2 = c2->next;
+	for (int i = 0; i < 13; i++) c3 = c3->next;
+	for (int i = 0; i < 3; i++) cf1 = cf1->next;
+	for (int i = 0; i < 8; i++) cf2 = cf2->next;
+
+	c2->former->next = c2->next;
+	c2->next->former = c2->former;
+	entry = cf1->next;
+	cf1->next = c2;
+	entry->former = c2;
+	c2->former = cf1;
+	c2->next = entry;
+
+	c1->former->next = c1->next;
+	c1->next->former = c1->former;
+	entry = cf1->next;
+	cf1->next = c1;
+	entry->former = c1;
+	c1->former = cf1;
+	c1->next = entry;
+
+
+	c3->former->next = c3->next;
+	c3->next->former = c3->former;
+	entry = cf2->next;
+	cf2->next = c3;
+	entry->former = c3;
+	c3->former = cf2;
+	c3->next = entry;
+	PrintMidCode(code);
+	//f->former->next = f->next;
+	//f->next->former = f->former;
+	//CodeFile* cf = entry->former;
+	//cf->next = f;
+	//entry->former = f;
+	//f->former = cf;
+	//f->next = entry;
 }
